@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "23096082016",
+    "project_id": "nexwork-e4866",
+    "storage_bucket": "nexwork-e4866.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23096082016:android:a120c6415bcdbf46708d05",
+        "android_client_info": {
+          "package_name": "app.nexwork"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcifRlOVUnSb_au79Nw2QPRHxAj7zHQZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23096082016:android:fdc5297778d21084708d05",
+        "android_client_info": {
+          "package_name": "com.example.nexwork"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcifRlOVUnSb_au79Nw2QPRHxAj7zHQZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

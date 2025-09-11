@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">NexWork</string>
+
+    <!-- welcome page-->
+    <string name="welcome_title">Bienvenido</string>
+    <string name="welcome_subtitle">Encuentre los mejores  servicios u ofrezca su experiencia a los clientes. Si aún no tiene una cuenta, registrese seleccionado un modo.</string>
+    <string name="action_client">Encuentra un servicio</string>
+    <string name="action_provider">Venta de servicios</string>
+    <string name="action_login">Iniciar Sesión</string>
+
+</resources>
