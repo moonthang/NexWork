@@ -8,4 +8,29 @@
     <string name="action_provider">Venta de servicios</string>
     <string name="action_login">Iniciar Sesión</string>
 
+    <!-- login page-->
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="login_button">Iniciar Sesión</string>
+    <string name="no_account">¿No tienes cuenta?</string>
+    <string name="action_register">Regístrate</string>
+    <string name="action_skip">Skip</string>
+
+    <!-- register page-->
+    <string name="create_account_title">Crear Cuenta</string>
+    <string name="hint_first_name">Nombre</string>
+    <string name="hint_last_name">Apellido</string>
+    <string name="hint_birth_date">Fecha de nacimiento</string>
+    <string name="hint_phone">Teléfono</string>
+    <string name="hint_confirm_password">Confirmar contraseña</string>
+    <string name="checkbox_accept_terms">Acepto términos y condiciones.</string>
+    <string name="register_button">Registrarse</string>
+    <string name="text_already_have_account">¿Ya tienes cuenta?</string>
+
+    <!-- forgot password page-->
+    <string name="forgot_password_title">Recuperar Contraseña</string>
+    <string name="forgot_password_subtitle">Por Favor, escriba su correo electrónico. Recibirá un enlace para crear una nueva contraseña por correo electrónico.</string>
+    <string name="action_send">Enviar</string>
+
 </resources>
