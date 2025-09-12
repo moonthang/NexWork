@@ -34,21 +34,21 @@
                 android:layout_height="65dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/edittext_background"
-                android:text="@string/hint_email"
-                android:textColor="@color/text_secondary"
-                android:textColorHint="@color/text_primary"
+                android:hint="@string/hint_email"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
                 android:padding="12dp"/>
 
             <EditText
-                android:id="@+id/hintPassword"
+                android:id="@+id/hint_password"
                 android:layout_width="350dp"
                 android:layout_height="65dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/edittext_background"
-                android:text="@string/hint_password"
-                android:textColor="@color/text_secondary"
-                android:textColorHint="@color/text_primary"
+                android:hint="@string/hint_password"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
                 android:padding="12dp" />
 

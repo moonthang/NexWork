@@ -81,14 +81,14 @@
                 android:layout_height="65dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/edittext_background"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
                 android:hint="@string/hint_birth_date"
+                android:padding="12dp"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
-                android:textSize="18sp"
-                android:padding="12dp"
-                android:focusable="false"
-                android:clickable="true"
-                android:cursorVisible="false"/>
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/hint_phone"
@@ -112,7 +112,8 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/hint_confirm_password"
@@ -124,7 +125,8 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:inputType="textPassword" />
 
             <LinearLayout
                 android:layout_width="350dp"
@@ -140,7 +142,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/checkbox_accept_terms"
                     android:textColor="@color/success"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:buttonTint="@color/success" />
 
             </LinearLayout>
 
