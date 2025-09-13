@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_primary"
     android:fillViewport="true"
-    tools:context=".Login">
+    tools:context=".auth.Login">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,8 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
-                android:padding="12dp"/>
+                android:padding="12dp"
+                android:paddingStart="25dp" />
 
             <EditText
                 android:id="@+id/hint_password"
@@ -50,7 +51,8 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:paddingStart="25dp" />
 
             <TextView
                 android:id="@+id/forgot_password"
@@ -67,12 +69,12 @@
                 android:layout_width="350dp"
                 android:layout_height="65dp"
                 android:layout_marginTop="15dp"
-                android:fontFamily="sans-serif-black"
                 app:backgroundTint="@color/button_primary_background"
                 android:text="@string/login_button"
                 android:textColor="@color/text_primary"
                 android:textAlignment="center"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:gravity="center" />
 
         </LinearLayout>
@@ -101,11 +103,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="@string/action_register"
                 android:textColor="@color/success"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

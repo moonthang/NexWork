@@ -1,8 +1,9 @@
-package com.example.nexwork
+package com.example.nexwork.auth
 
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
@@ -11,6 +12,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.nexwork.Home
+import com.example.nexwork.R
+import com.example.nexwork.core.LoadingDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,6 +26,7 @@ class Registration : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private var userRole: String = "user"
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +38,7 @@ class Registration : AppCompatActivity() {
             insets
         }
 
+        loadingDialog = LoadingDialog(this)
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
@@ -106,6 +112,7 @@ class Registration : AppCompatActivity() {
         phone: String,
         password: String
     ) {
+        loadingDialog.show()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -119,6 +126,7 @@ class Registration : AppCompatActivity() {
                             if (profileTask.isSuccessful) {
                                 saveUserDataToFirestore(user.uid, firstName, lastName, email, birthDate, phone)
                             } else {
+                                loadingDialog.dismiss()
                                 Toast.makeText(
                                     this,
                                     "Error al actualizar perfil: ${profileTask.exception?.message}",
@@ -127,6 +135,7 @@ class Registration : AppCompatActivity() {
                             }
                         }
                 } else {
+                    loadingDialog.dismiss()
                     Toast.makeText(
                         this,
                         "Error en registro: ${task.exception?.message}",
@@ -159,12 +168,14 @@ class Registration : AppCompatActivity() {
             .document(userId)
             .set(user)
             .addOnSuccessListener {
+                loadingDialog.dismiss()
                 Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Home::class.java)
                 startActivity(intent)
                 finish()
             }
             .addOnFailureListener { e ->
+                loadingDialog.dismiss()
                 Toast.makeText(
                     this,
                     "Error al guardar datos: ${e.message}",
@@ -192,7 +203,7 @@ class Registration : AppCompatActivity() {
             return false
         }
 
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "Por favor, ingresa un correo eléctronico válido.", Toast.LENGTH_SHORT).show()
             return false
         }

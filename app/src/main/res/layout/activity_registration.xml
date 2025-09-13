@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_primary"
     android:fillViewport="true"
-    tools:context=".Registration">
+    tools:context=".auth.Registration">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,11 +33,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="@string/create_account_title"
                 android:textColor="@color/text_primary"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/hint_first_name"
@@ -49,7 +49,8 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
-                android:padding="12dp"/>
+                android:padding="12dp"
+                android:paddingStart="25dp" />
 
             <EditText
                 android:id="@+id/hint_last_name"
@@ -61,7 +62,8 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:paddingStart="25dp"/>
 
             <EditText
                 android:id="@+id/hint_email"
@@ -73,7 +75,8 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:paddingStart="25dp"/>
 
             <EditText
                 android:id="@+id/hint_birth_date"
@@ -88,7 +91,8 @@
                 android:padding="12dp"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:paddingStart="25dp" />
 
             <EditText
                 android:id="@+id/hint_phone"
@@ -100,7 +104,8 @@
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:paddingStart="25dp" />
 
             <EditText
                 android:id="@+id/hint_password"
@@ -113,6 +118,7 @@
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
                 android:padding="12dp"
+                android:paddingStart="25dp"
                 android:inputType="textPassword" />
 
             <EditText
@@ -126,6 +132,7 @@
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
                 android:padding="12dp"
+                android:paddingStart="25dp"
                 android:inputType="textPassword" />
 
             <LinearLayout
@@ -152,12 +159,12 @@
                 android:layout_width="350dp"
                 android:layout_height="65dp"
                 android:layout_marginTop="15dp"
-                android:fontFamily="sans-serif-black"
                 app:backgroundTint="@color/button_primary_background"
                 android:text="@string/register_button"
                 android:textColor="@color/text_primary"
                 android:textAlignment="center"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:gravity="center" />
 
             <TextView

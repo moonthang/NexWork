@@ -1,4 +1,4 @@
-package com.example.nexwork
+package com.example.nexwork.auth
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import android.content.Intent
 import android.widget.Button
 import android.widget.TextView
+import com.example.nexwork.R
 
 class Welcome : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

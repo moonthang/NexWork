@@ -1,4 +1,4 @@
-package com.example.nexwork
+package com.example.nexwork.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.nexwork.Home
+import com.example.nexwork.R
+import com.example.nexwork.core.LoadingDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -19,6 +22,7 @@ class Login : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +34,7 @@ class Login : AppCompatActivity() {
             insets
         }
 
+        loadingDialog = LoadingDialog(this)
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
@@ -70,8 +75,10 @@ class Login : AppCompatActivity() {
     }
 
     private fun loginUserInFirebase(email: String, password: String) {
+        loadingDialog.show()
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
+                loadingDialog.dismiss()
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     if (user != null) {

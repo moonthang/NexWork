@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">NexWork</string>
 
+    <!-- loading -->
+    <string name="text_cargando">Cargando</string>
+
+    <!-- bottom nav -->
+    <string name="btn_home">Inicio</string>
+    <string name="btn_category">Categorías</string>
+    <string name="btn_messages">Mensajes</string>
+    <string name="btn_profile">Perfil</string>
+
     <!-- welcome page-->
     <string name="welcome_title">Bienvenido</string>
     <string name="welcome_subtitle">Encuentre los mejores  servicios u ofrezca su experiencia a los clientes. Si aún no tiene una cuenta, registrese seleccionado un modo.</string>
