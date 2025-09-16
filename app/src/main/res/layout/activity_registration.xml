@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    android:fillViewport="true"
+    tools:context=".auth.Registration">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp" >
+
+            <ImageView
+                android:id="@+id/Logotipo"
+                android:layout_width="390dp"
+                android:layout_height="50dp"
+                android:src="@drawable/logotipo_nexwork" />
+
+            <TextView
+                android:id="@+id/create_account_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/create_account_title"
+                android:textColor="@color/text_primary"
+                android:textSize="32sp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/hint_first_name"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/edittext_background"
+                android:hint="@string/hint_first_name"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:paddingStart="25dp" />
+
+            <EditText
+                android:id="@+id/hint_last_name"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:hint="@string/hint_last_name"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:paddingStart="25dp"/>
+
+            <EditText
+                android:id="@+id/hint_email"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:hint="@string/hint_email"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:paddingStart="25dp"/>
+
+            <EditText
+                android:id="@+id/hint_birth_date"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:hint="@string/hint_birth_date"
+                android:padding="12dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="18sp"
+                android:paddingStart="25dp" />
+
+            <EditText
+                android:id="@+id/hint_phone"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:hint="@string/hint_phone"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:paddingStart="25dp" />
+
+            <EditText
+                android:id="@+id/hint_password"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:hint="@string/hint_password"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:paddingStart="25dp"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/hint_confirm_password"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:hint="@string/hint_confirm_password"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:paddingStart="25dp"
+                android:inputType="textPassword" />
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:paddingHorizontal="20dp">
+
+                <CheckBox
+                    android:id="@+id/checkbox_accept_terms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkbox_accept_terms"
+                    android:textColor="@color/success"
+                    android:textSize="14sp"
+                    android:buttonTint="@color/success" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="15dp"
+                app:backgroundTint="@color/button_primary_background"
+                android:text="@string/register_button"
+                android:textColor="@color/text_primary"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/text_already_have_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:text="@string/text_already_have_account"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/action_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:text="@string/action_login"
+                android:textColor="@color/success"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

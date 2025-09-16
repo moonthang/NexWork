@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_primary"
     android:fillViewport="true"
-    tools:context=".Welcome">
+    tools:context=".auth.Welcome">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_marginTop="100dp" >
 
             <ImageView
                 android:id="@+id/Logotipo"
@@ -29,20 +30,19 @@
 
             <TextView
                 android:id="@+id/titleWelcome"
-                android:layout_width="220dp"
-                android:layout_height="64dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:text="@string/welcome_title"
                 android:textColor="@color/text_primary"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/subtitleDescription"
-                android:layout_width="372dp"
-                android:layout_height="109dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/welcome_subtitle"
                 android:textColor="@color/text_primary"
@@ -60,32 +60,34 @@
 
             <Button
                 android:id="@+id/btn_register_client"
-                android:layout_width="120dp"
-                android:layout_height="150dp"
+                android:layout_width="150dp"
+                android:layout_height="180dp"
                 android:background="@drawable/action_btns_welcome"
                 app:backgroundTint="@null"
                 android:text="@string/action_client"
                 android:textColor="@color/text_primary"
                 android:textAlignment="center"
                 android:gravity="center"
+                android:textSize="18sp"
                 app:icon="@drawable/ic_screen_search_desktop"
                 app:iconTint="@color/accent"
                 app:iconGravity="top"
                 app:iconSize="65dp" />
 
             <Space
-                android:layout_width="32dp"
+                android:layout_width="20dp"
                 android:layout_height="1dp" />
 
             <Button
                 android:id="@+id/btn_register_provider"
-                android:layout_width="120dp"
-                android:layout_height="150dp"
+                android:layout_width="150dp"
+                android:layout_height="180dp"
                 android:background="@drawable/action_btns_welcome"
                 app:backgroundTint="@null"
                 android:text="@string/action_provider"
                 android:textColor="@color/text_primary"
                 android:textAlignment="center"
+                android:textSize="18sp"
                 android:gravity="center"
                 app:icon="@drawable/ic_shopping_bag"
                 app:iconTint="@color/accent"
@@ -98,16 +100,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="80dp">
 
             <TextView
-                android:id="@+id/txtAutor"
+                android:id="@+id/action_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/action_login"
                 android:textColor="@color/accent"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

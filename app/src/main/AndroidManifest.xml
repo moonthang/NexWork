@@ -12,10 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NexWork">
         <activity
-            android:name=".Welcome"
+            android:name=".core.LoadingDialog"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Home"
+            android:exported="false" />
+        <activity
+            android:name=".auth.ForgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".auth.Registration"
+            android:exported="false" />
+        <activity
+            android:name=".auth.Login"
+            android:exported="false" />
+        <activity
+            android:name=".auth.Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
