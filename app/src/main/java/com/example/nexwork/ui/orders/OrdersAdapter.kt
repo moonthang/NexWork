@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nexwork.R
+import com.example.nexwork.core.models.Order
 
 class OrdersAdapter : ListAdapter<Order, OrdersAdapter.OrderViewHolder>(OrdersDiffCallback()) {
 

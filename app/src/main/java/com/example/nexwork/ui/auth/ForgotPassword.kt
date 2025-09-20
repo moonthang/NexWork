@@ -1,4 +1,4 @@
-package com.example.nexwork.auth
+package com.example.nexwork.ui.auth
 
 import android.os.Bundle
 import android.view.View

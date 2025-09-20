@@ -1,4 +1,4 @@
-package com.example.nexwork.ui.orders
+package com.example.nexwork.core.models
 
 data class Order(
     val id: String,
