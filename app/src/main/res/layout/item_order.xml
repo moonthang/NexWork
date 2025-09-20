@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/servicio_nombre"
+                android:id="@+id/service_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Limpieza de GYM"
@@ -32,7 +32,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/cliente_nombre"
+                android:id="@+id/client_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -40,7 +40,7 @@
                 android:textColor="@color/text_primary" />
 
             <TextView
-                android:id="@+id/pedido_fecha"
+                android:id="@+id/order_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -48,7 +48,7 @@
                 android:textColor="@color/text_secondary" />
 
             <TextView
-                android:id="@+id/pedido_horario"
+                android:id="@+id/order_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -56,7 +56,7 @@
                 android:textColor="@color/text_secondary" />
 
             <Button
-                android:id="@+id/ver_detalles_button"
+                android:id="@+id/view_details_button"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -69,7 +69,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/pedido_imagen"
+            android:id="@+id/order_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_vertical"

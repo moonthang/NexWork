@@ -13,13 +13,13 @@ import com.example.nexwork.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class AdministrarPedidosFragment : Fragment() {
+class ManageOrdersFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_administrar_pedidos, container, false)
+        return inflater.inflate(R.layout.fragment_manage_orders, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,29 +32,29 @@ class AdministrarPedidosFragment : Fragment() {
         val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
         val viewPager = view.findViewById<ViewPager2>(R.id.view_pager)
 
-        val adapter = PedidosPagerAdapter(requireActivity())
+        val adapter = OrdersPagerAdapter(requireActivity())
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "CONFIRMADOS"
-                1 -> "PENDIENTES"
-                2 -> "HISTORIAL"
+                0 -> "CONFIRMED"
+                1 -> "PENDING"
+                2 -> "HISTORY"
                 else -> null
             }
         }.attach()
     }
 }
 
-class PedidosPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+class OrdersPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
-        return OrderListFragment.newInstance(
+        return OrdersListFragment.newInstance(
             when (position) {
-                0 -> "CONFIRMADOS"
-                1 -> "PENDIENTES"
-                else -> "HISTORIAL"
+                0 -> "CONFIRMED"
+                1 -> "PENDING"
+                else -> "HISTORY"
             }
         )
     }

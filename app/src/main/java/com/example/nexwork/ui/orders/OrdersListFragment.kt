@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nexwork.R
 
-class OrderListFragment : Fragment() {
+class OrdersListFragment : Fragment() {
 
-    private lateinit var pedidoType: String
+    private lateinit var orderType: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            pedidoType = it.getString(ARG_PEDIDO_TYPE) ?: ""
+            orderType = it.getString(ARG_ORDER_TYPE) ?: ""
         }
     }
 
@@ -24,7 +24,7 @@ class OrderListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_pedidos_list, container, false)
+        return inflater.inflate(R.layout.fragment_orders_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class OrderListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        val adapter = PedidosAdapter()
+        val adapter = OrdersAdapter()
         recyclerView.adapter = adapter
 
         val dummyOrders = listOf(
@@ -46,13 +46,13 @@ class OrderListFragment : Fragment() {
     }
 
     companion object {
-        private const val ARG_PEDIDO_TYPE = "pedido_type"
+        private const val ARG_ORDER_TYPE = "order_type"
 
         @JvmStatic
-        fun newInstance(pedidoType: String) =
-            OrderListFragment().apply {
+        fun newInstance(orderType: String) =
+            OrdersListFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PEDIDO_TYPE, pedidoType)
+                    putString(ARG_ORDER_TYPE, orderType)
                 }
             }
     }
