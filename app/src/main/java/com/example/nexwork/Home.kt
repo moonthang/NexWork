@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.nexwork.auth.Login
+import com.example.nexwork.ui.auth.Login
 import com.google.firebase.auth.FirebaseAuth
 
 class Home : AppCompatActivity() {

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_primary"
     android:fillViewport="true"
-    tools:context=".auth.Login">
+    tools:context=".ui.auth.Login">
 
     <LinearLayout
         android:layout_width="match_parent"
