@@ -12,7 +12,7 @@
 
     <!-- welcome page-->
     <string name="welcome_title">Bienvenido</string>
-    <string name="welcome_subtitle">Encuentre los mejores  servicios u ofrezca su experiencia a los clientes. Si aún no tiene una cuenta, registrese seleccionado un modo.</string>
+    <string name="welcome_subtitle">Encuentre los mejores servicios u ofrezca su experiencia a los clientes. Si aún no tiene una cuenta, registrese seleccionado un modo.</string>
     <string name="action_client">Encuentra un servicio</string>
     <string name="action_provider">Venta de servicios</string>
     <string name="action_login">Iniciar Sesión</string>
@@ -41,5 +41,13 @@
     <string name="forgot_password_title">Recuperar Contraseña</string>
     <string name="forgot_password_subtitle">Por Favor, escriba su correo electrónico. Recibirá un enlace para crear una nueva contraseña por correo electrónico.</string>
     <string name="action_send">Enviar</string>
+
+    <!-- My Services -->
+    <string name="my_services_title">Mis Servicios</string>
+    <string name="add_new_service_button">Agregar Nuevo Servicio</string>
+
+    <!-- User CRUD -->
+    <string name="edit_button">Editar</string>
+    <string name="delete_button">Borrar</string>
 
 </resources>

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nexwork.R
-import com.example.nexwork.core.models.Order
+import com.example.nexwork.data.model.Order
 
 class OrdersListFragment : Fragment() {
 

@@ -1,6 +1,6 @@
 package com.example.nexwork.data.repository
 
-
+import com.example.nexwork.data.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -9,6 +9,7 @@ import java.util.Calendar
 class AuthRepository {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val usersCollection = db.collection("users")
 
     fun registerUser(
         email: String,
@@ -24,29 +25,68 @@ class AuthRepository {
                 }
             }
     }
+    
+    // CREATE (Se reutiliza parte del registro, pero se podría crear uno nuevo si hiciera falta)
+    fun createUser(user: User, onComplete: (Result<Unit>) -> Unit) {
+        usersCollection.document(user.userId).set(user)
+            .addOnSuccessListener { onComplete(Result.success(Unit)) }
+            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
 
+    // READ
+    fun getUserById(userId: String, onComplete: (Result<User>) -> Unit) {
+        usersCollection.document(userId).get()
+            .addOnSuccessListener { document ->
+                val user = document.toObject(User::class.java)
+                if (user != null) {
+                    onComplete(Result.success(user))
+                } else {
+                    onComplete(Result.failure(Exception("User not found")))
+                }
+            }
+            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
+
+    fun getAllUsers(onComplete: (Result<List<User>>) -> Unit) {
+        usersCollection.get()
+            .addOnSuccessListener { querySnapshot ->
+                val users = querySnapshot.toObjects(User::class.java)
+                onComplete(Result.success(users))
+            }
+            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
+
+    // UPDATE
+    fun updateUser(user: User, onComplete: (Result<Unit>) -> Unit) {
+        usersCollection.document(user.userId).set(user)
+            .addOnSuccessListener { onComplete(Result.success(Unit)) }
+            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
+
+    // DELETE
+    fun deleteUser(userId: String, onComplete: (Result<Unit>) -> Unit) {
+        usersCollection.document(userId).delete()
+            .addOnSuccessListener { onComplete(Result.success(Unit)) }
+            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
+
+    // Refactor de la función original para usar el modelo User
     fun saveUserData(
-        userId: String,
-        firstName: String,
-        lastName: String,
-        email: String,
-        birthDate: String,
-        phone: String,
-        userRole: String,
+        user: User,
         onComplete: (Result<Unit>) -> Unit
     ) {
-        val userProfile = hashMapOf(
-            "userId" to userId,
-            "firstName" to firstName,
-            "lastName" to lastName,
-            "email" to email,
-            "birthDate" to birthDate,
-            "phone" to phone,
-            "role" to userRole,
+        val userProfile = mapOf(
+            "userId" to user.userId,
+            "firstName" to user.firstName,
+            "lastName" to user.lastName,
+            "email" to user.email,
+            "birthDate" to user.birthDate,
+            "phone" to user.phone,
+            "role" to user.role,
             "createdAt" to Calendar.getInstance().time
         )
 
-        db.collection("users").document(userId).set(userProfile)
+        usersCollection.document(user.userId).set(userProfile)
             .addOnSuccessListener {
                 onComplete(Result.success(Unit))
             }

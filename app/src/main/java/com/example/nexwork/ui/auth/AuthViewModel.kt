@@ -3,12 +3,13 @@ package com.example.nexwork.ui.auth
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.nexwork.data.model.User
 import com.example.nexwork.data.repository.AuthRepository
 
 class AuthViewModel : ViewModel() {
     private val repository = AuthRepository()
 
-    // LiveData para comunicar el estado a la UI
+    // Comunicacion del estado con la UI
     private val _registrationState = MutableLiveData<RegistrationState>()
     val registrationState: LiveData<RegistrationState> = _registrationState
 
@@ -19,17 +20,18 @@ class AuthViewModel : ViewModel() {
         _registrationState.value = RegistrationState.Loading
 
         repository.registerUser(email, password) { authResult ->
-            authResult.onSuccess { user ->
-                // Usuario creado en Auth, ahora guardamos sus datos en Firestore
-                repository.saveUserData(
-                    userId = user.uid,
+            authResult.onSuccess { firebaseUser ->
+                val newUser = User(
+                    userId = firebaseUser.uid,
                     firstName = firstName,
                     lastName = lastName,
                     email = email,
                     birthDate = birthDate,
                     phone = phone,
-                    userRole = userRole
-                ) { dbResult ->
+                    role = userRole
+                )
+
+                repository.saveUserData(newUser) { dbResult ->
                     dbResult.onSuccess {
                         _registrationState.value = RegistrationState.Success
                     }.onFailure { error ->
@@ -43,7 +45,7 @@ class AuthViewModel : ViewModel() {
     }
 }
 
-// Clase sellada para manejar los estados de la UI de forma segura
+// Clase para manejar los estados
 sealed class RegistrationState {
     object Loading : RegistrationState()
     object Success : RegistrationState()
