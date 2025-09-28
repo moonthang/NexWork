@@ -18,7 +18,7 @@ class ForgotPassword : AppCompatActivity() {
         val txtTitle = basic_header.findViewById<TextView>(R.id.txtTitle)
         val btnBack = basic_header.findViewById<ImageView>(R.id.btnBack)
 
-        txtTitle.text = "Recuperar contraseña"
+        txtTitle.setText(getString(R.string.forgot_password_title))
         btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }

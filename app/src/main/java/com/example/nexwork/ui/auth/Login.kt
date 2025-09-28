@@ -24,6 +24,11 @@ class Login : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var loadingDialog: LoadingDialog
 
+    companion object {
+        const val EXTRA_USER_ROLE = "USER_ROLE"
+        const val ROLE_GUEST = "guest"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -52,7 +57,9 @@ class Login : AppCompatActivity() {
 
         val action_skip = findViewById<TextView>(R.id.action_skip)
         action_skip.setOnClickListener {
-            val intent = Intent(this, Home::class.java)
+            val intent = Intent(this, Home::class.java).apply {
+                putExtra(EXTRA_USER_ROLE, ROLE_GUEST)
+            }
             startActivity(intent)
         }
 

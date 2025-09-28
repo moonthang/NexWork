@@ -95,4 +95,8 @@ class AuthRepository {
                 onComplete(Result.failure(e))
             }
     }
+
+    fun getCurrentUserId(): String? {
+        return auth.currentUser?.uid
+    }
 }
