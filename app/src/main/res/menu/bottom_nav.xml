@@ -7,6 +7,9 @@
     <item android:title="@string/btn_category"
         android:id="@+id/btn_category"
         android:icon="@drawable/ic_category"/>
+    <item android:title="@string/btn_notifications"
+        android:id="@+id/btn_notifications"
+        android:icon="@drawable/ic_notifications"/>
     <item android:title="@string/btn_messages"
         android:id="@+id/btn_messages"
         android:icon="@drawable/ic_messages"/>

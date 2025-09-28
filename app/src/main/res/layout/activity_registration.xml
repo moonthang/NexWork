@@ -150,7 +150,8 @@
                     android:text="@string/checkbox_accept_terms"
                     android:textColor="@color/success"
                     android:textSize="14sp"
-                    android:buttonTint="@color/success" />
+                    app:buttonTint="@color/success"
+                    app:buttonIconTint="@color/text_primary"/>
 
             </LinearLayout>
 

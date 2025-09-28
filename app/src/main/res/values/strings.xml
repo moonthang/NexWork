@@ -9,6 +9,7 @@
     <string name="btn_category">Categorías</string>
     <string name="btn_messages">Mensajes</string>
     <string name="btn_profile">Perfil</string>
+    <string name="btn_notifications">Notificaciones</string>
 
     <!-- welcome page-->
     <string name="welcome_title">Bienvenido</string>
@@ -49,5 +50,22 @@
     <!-- User CRUD -->
     <string name="edit_button">Editar</string>
     <string name="delete_button">Borrar</string>
+
+    <!-- Profile page -->
+    <string name="profile_title">Perfil</string>
+    <string name="section_title_config">Configuración</string>
+    <string name="section_title_tools">Herramientas</string>
+    <string name="text_manage_orders">Administrar pedidos</string>
+    <string name="text_saved_list">Lista de guardados</string>
+    <string name="text_provider_panel">Panel de proveedor</string>
+    <string name="text_invite_friends">Invitar a amigos</string>
+    <string name="text_preferences">Preferencias</string>
+    <string name="text_account">Cuenta</string>
+    <string name="text_support">Soporte</string>
+    <string name="text_community">Comunidad y legal</string>
+    <string name="version_app">V 0.1</string>
+    <!-- Guest Profile page -->
+    <string name="guest_welcome_message">Parece que no has iniciado sesión.</string>
+    <string name="guest_invitation_subtitle">Por favor, regístrate o inicia sesión para acceder a tu perfil.</string>
 
 </resources>
