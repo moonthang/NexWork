@@ -16,6 +16,7 @@ import com.example.nexwork.data.model.User
 import com.example.nexwork.data.repository.AuthRepository
 import com.google.firebase.storage.FirebaseStorage
 import com.example.nexwork.core.LoadingDialog
+import com.example.nexwork.ui.profile.account.AccountFragment
 
 class ProfileFragment : Fragment() {
 
@@ -49,6 +50,15 @@ class ProfileFragment : Fragment() {
         } else {
             loadingDialog.dismiss()
         }
+
+        val sectionProfile = view.findViewById<View>(R.id.section_profile)
+        sectionProfile.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, AccountFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
 
         val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
@@ -89,7 +99,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun loadProfileImage(imagePath: String, imageView: ImageView) {
+    private fun loadProfileImage(imagePath: String?, imageView: ImageView) {
         if (imagePath.isNullOrEmpty()) {
             Glide.with(this)
                 .load(R.drawable.ic_profile)
@@ -97,18 +107,23 @@ class ProfileFragment : Fragment() {
             return
         }
 
-        val storage = FirebaseStorage.getInstance()
-        val imageRef = storage.reference.child(imagePath)
-
-        imageRef.downloadUrl.addOnSuccessListener { uri ->
+        if (imagePath.startsWith("http")) {
             Glide.with(this)
-                .load(uri)
+                .load(imagePath)
                 .placeholder(R.drawable.ic_profile)
                 .into(imageView)
-        }.addOnFailureListener {
-            Glide.with(this)
-                .load(R.drawable.ic_profile)
-                .into(imageView)
+        } else {
+            val imageRef = FirebaseStorage.getInstance().reference.child(imagePath)
+            imageRef.downloadUrl.addOnSuccessListener { uri ->
+                Glide.with(this)
+                    .load(uri)
+                    .placeholder(R.drawable.ic_profile)
+                    .into(imageView)
+            }.addOnFailureListener {
+                Glide.with(this)
+                    .load(R.drawable.ic_profile)
+                    .into(imageView)
+            }
         }
     }
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_primary"
+    android:orientation="vertical"
+    tools:context=".ui.profile.account.DeleteAccountFragment">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/basic_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/delete_account_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:text="@string/delete_account_subtitle"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/current_password"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/edittext_background"
+                android:hint="@string/hint_current_password"
+                android:padding="12dp"
+                android:paddingStart="25dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_delete_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:text="@string/btn_delete_account"
+                android:textColor="@color/error"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/background_primary"
+                app:strokeColor="@color/error"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/btn_cancel"
+                android:textColor="@color/stroke_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/text_primary"
+                app:strokeColor="@color/stroke_primary"
+                app:strokeWidth="2dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
