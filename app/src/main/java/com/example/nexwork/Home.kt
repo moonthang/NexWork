@@ -1,9 +1,7 @@
 package com.example.nexwork
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +21,6 @@ class Home : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var btnLogout: Button
     private lateinit var headerActivity: View
     private lateinit var mainScrollView: View
     private lateinit var fragmentContainer: View
@@ -45,7 +42,6 @@ class Home : AppCompatActivity() {
         currentUserRole = intent.getStringExtra(Login.EXTRA_USER_ROLE)
         auth = FirebaseAuth.getInstance()
         bottomNavigationView = findViewById(R.id.bottom_navigation)
-        btnLogout = findViewById(R.id.btn_logout)
         mainScrollView = findViewById(R.id.main)
         fragmentContainer = findViewById(R.id.fragment_container)
         headerActivity = findViewById(R.id.header)
@@ -57,7 +53,6 @@ class Home : AppCompatActivity() {
             setupAuthenticatedUser()
         }
 
-        setupClickListeners()
         bottomNavigationView.selectedItemId = R.id.btn_home
     }
 
@@ -124,7 +119,7 @@ class Home : AppCompatActivity() {
                 menu.findItem(R.id.btn_notifications).isVisible = true
             }
             "client" -> {
-                menu.findItem(R.id.btn_category).isVisible = false
+                menu.findItem(R.id.btn_category).isVisible = true
                 menu.findItem(R.id.btn_notifications).isVisible = false
             }
             "admin" -> {
@@ -150,22 +145,6 @@ class Home : AppCompatActivity() {
                 }
                 else -> false
             }
-        }
-    }
-
-    private fun setupClickListeners() {
-        btnLogout.setOnClickListener {
-            if (currentUserRole == Login.ROLE_GUEST) {
-                val intent = Intent(this, Login::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            } else {
-                auth.signOut()
-                val intent = Intent(this, Login::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            }
-            finish()
         }
     }
 

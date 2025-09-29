@@ -64,8 +64,38 @@
     <string name="text_support">Soporte</string>
     <string name="text_community">Comunidad y legal</string>
     <string name="version_app">V 0.1</string>
+
     <!-- Guest Profile page -->
     <string name="guest_welcome_message">Parece que no has iniciado sesión.</string>
     <string name="guest_invitation_subtitle">Por favor, regístrate o inicia sesión para acceder a tu perfil.</string>
+
+    <!-- Account page -->
+    <string name="account_title">Cuenta</string>
+    <string name="section_title_personal_information">Información Personal</string>
+    <string name="section_title_account_management">Gestión de Cuenta y Privacidad</string>
+    <string name="text_change_password">Cambiar contraseña</string>
+    <string name="text_delete_account">Desactivar y eliminar cuenta</string>
+    <string name="text_privacy_policy">Política de privacidad</string>
+    <string name="text_close_session">Cerrar sesión</string>
+    <string name="text_bank_account">Cuenta bancaria</string>
+    <string name="btn_edit">Editar</string>
+    <string name="btn_save">Guardar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_change_client">Cambiar a cliente</string>
+    <string name="btn_change_provider">Cambiar a proveedor</string>
+    <string name="btn_change_photo">Cambiar Foto</string>
+    <string name="btn_delete_photo">Eliminar Foto</string>
+
+    <!-- Change password page -->
+    <string name="change_password_title">Cambiar Contraseña</string>
+    <string name="change_password_subtitle">Por favor, ingrese su contraseña actual y cree una nueva.</string>
+    <string name="hint_current_password">Contraseña actual</string>
+    <string name="hint_new_password">Nueva contraseña</string>
+    <string name="hint_confirm_new_password">Confirmar nueva contraseña</string>
+
+    <!-- Delete password page -->
+    <string name="delete_account_title">Eliminar Cuenta</string>
+    <string name="delete_account_subtitle">¿Seguro desea eliminar su cuenta? Esta acción no se puede revertir. Ingrese su contraseña actual.</string>
+    <string name="btn_delete_account">Eliminar cuenta</string>"
 
 </resources>

@@ -20,7 +20,7 @@ import java.util.Calendar
 
 class Registration : AppCompatActivity() {
 
-    private var userRole: String = "user"
+    private var userRole: String = "client"
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var birthDateEditText: EditText
 
@@ -37,7 +37,14 @@ class Registration : AppCompatActivity() {
         }
 
         loadingDialog = LoadingDialog(this)
-        userRole = intent.getStringExtra("userRole") ?: "user"
+        userRole = intent.getStringExtra("userRole") ?: "client"
+        if (intent.getStringExtra("userRole") == null) {
+            Toast.makeText(
+                this,
+                "Se te asignó automáticamente el rol de CLIENTE.\nSi quieres cambiarlo, dirígete a Perfil → Cuenta.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
         birthDateEditText = findViewById(R.id.hint_birth_date)
 
         setupOnClickListener()
