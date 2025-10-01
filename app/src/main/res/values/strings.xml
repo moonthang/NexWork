@@ -63,6 +63,9 @@
     <string name="text_saved_list">Lista de guardados</string>
     <string name="text_provider_panel">Panel de proveedor</string>
     <string name="text_invite_friends">Invitar a amigos</string>
+    <string name="text_manage_users">Administrar usuarios</string>">
+    <string name="text_manage_services">Administrar servicios</string>
+    <string name="text_manage_categories">Administrar categorias</string>
     <string name="text_preferences">Preferencias</string>
     <string name="text_account">Cuenta</string>
     <string name="text_support">Soporte</string>
@@ -110,8 +113,8 @@
     <string name="view_details_option">Ver Detalles</string>
     <string name="delete_user_option">Eliminar Usuario</string>
     <string name="cancel_option">Cancelar</string>
-
-
+    <string name="add_user_str">Agregar usuario</string>
+    <string name="hint_search_user">Buscar usuario…</string>
 
 
 </resources>

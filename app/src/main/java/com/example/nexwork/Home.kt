@@ -16,6 +16,8 @@ import com.example.nexwork.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.example.nexwork.core.LoadingDialog
+import com.example.nexwork.ui.services.MyServicesFragment
+import com.example.nexwork.ui.users.UserListFragment
 
 class Home : AppCompatActivity() {
 
@@ -123,9 +125,11 @@ class Home : AppCompatActivity() {
                 menu.findItem(R.id.btn_notifications).isVisible = false
             }
             "admin" -> {
-                menu.findItem(R.id.btn_messages).isVisible = true
-                menu.findItem(R.id.btn_category).isVisible = true
-                menu.findItem(R.id.btn_notifications).isVisible = true
+                menu.findItem(R.id.btn_home).isVisible = true
+                menu.findItem(R.id.btn_profile).isVisible = true
+                menu.findItem(R.id.btn_messages).isVisible = false
+                menu.findItem(R.id.btn_notifications).isVisible = false
+
             }
             else -> {
                 setupBottomNavigationForGuest()
@@ -143,6 +147,7 @@ class Home : AppCompatActivity() {
                     loadFragment(ProfileFragment())
                     true
                 }
+
                 else -> false
             }
         }

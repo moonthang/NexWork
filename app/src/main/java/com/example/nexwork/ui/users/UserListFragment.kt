@@ -60,13 +60,13 @@ class UserListFragment : Fragment() {
         title.text = "Opciones para ${user.firstName}"
 
         btnEdit.setOnClickListener {
-            // --- ¡NUEVA LÓGICA AQUÍ! ---
+          /*  // --- ¡NUEVA LÓGICA AQUÍ! ---
             // Inicia la EditProfileActivity cuando se pulsa el botón
             val intent = Intent(requireContext(), EditProfileActivity::class.java)
             // Opcional: pasar el ID del usuario a la actividad de edición
             // intent.putExtra("USER_ID", user.id)
             startActivity(intent)
-            dialog.dismiss()
+            dialog.dismiss()*/
         }
         btnDetails.setOnClickListener {
             // Lógica para ver detalles
