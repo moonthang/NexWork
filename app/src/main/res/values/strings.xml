@@ -11,6 +11,12 @@
     <string name="btn_profile">Perfil</string>
     <string name="btn_notifications">Notificaciones</string>
 
+    <!-- bottom nav admin -->
+    <string name="btn_users_menu_str">Usuarios</string>
+    <string name="btn_services_menu_str">Servicios</string>
+    <string name="btn_petitions_menu_str">Solicitudes</string>
+    <string name="btn_config_menu_str">Configuracion</string>"
+
     <!-- welcome page-->
     <string name="welcome_title">Bienvenido</string>
     <string name="welcome_subtitle">Encuentre los mejores servicios u ofrezca su experiencia a los clientes. Si aún no tiene una cuenta, registrese seleccionado un modo.</string>
@@ -47,9 +53,7 @@
     <string name="my_services_title">Mis Servicios</string>
     <string name="add_new_service_button">Agregar Nuevo Servicio</string>
 
-    <!-- User CRUD -->
-    <string name="edit_button">Editar</string>
-    <string name="delete_button">Borrar</string>
+
 
     <!-- Profile page -->
     <string name="profile_title">Perfil</string>
@@ -96,6 +100,18 @@
     <!-- Delete password page -->
     <string name="delete_account_title">Eliminar Cuenta</string>
     <string name="delete_account_subtitle">¿Seguro desea eliminar su cuenta? Esta acción no se puede revertir. Ingrese su contraseña actual.</string>
-    <string name="btn_delete_account">Eliminar cuenta</string>"
+    <string name="btn_delete_account">Eliminar cuenta</string>
+
+    <!-- User CRUD -->
+    <!--<string name="edit_button">Editar</string>
+    <string name="delete_button">Borrar</string>-->
+    <string name="user_profile_image_desc">Imagen de perfil del usuario</string>
+    <string name="edit_user_option">Editar Usuario</string>
+    <string name="view_details_option">Ver Detalles</string>
+    <string name="delete_user_option">Eliminar Usuario</string>
+    <string name="cancel_option">Cancelar</string>
+
+
+
 
 </resources>
