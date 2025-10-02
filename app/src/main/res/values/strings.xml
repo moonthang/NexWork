@@ -11,6 +11,12 @@
     <string name="btn_profile">Perfil</string>
     <string name="btn_notifications">Notificaciones</string>
 
+    <!-- bottom nav admin -->
+    <string name="btn_users_menu_str">Usuarios</string>
+    <string name="btn_services_menu_str">Servicios</string>
+    <string name="btn_petitions_menu_str">Solicitudes</string>
+    <string name="btn_config_menu_str">Configuracion</string>"
+
     <!-- welcome page-->
     <string name="welcome_title">Bienvenido</string>
     <string name="welcome_subtitle">Encuentre los mejores servicios u ofrezca su experiencia a los clientes. Si aún no tiene una cuenta, registrese seleccionado un modo.</string>
@@ -47,9 +53,6 @@
     <string name="my_services_title">Mis Servicios</string>
     <string name="add_new_service_button">Agregar Nuevo Servicio</string>
 
-    <!-- User CRUD -->
-    <string name="edit_button">Editar</string>
-    <string name="delete_button">Borrar</string>
 
     <!-- Profile page -->
     <string name="profile_title">Perfil</string>
@@ -59,6 +62,9 @@
     <string name="text_saved_list">Lista de guardados</string>
     <string name="text_provider_panel">Panel de proveedor</string>
     <string name="text_invite_friends">Invitar a amigos</string>
+    <string name="text_manage_users">Administrar usuarios</string>">
+    <string name="text_manage_services">Administrar servicios</string>
+    <string name="text_manage_categories">Administrar categorias</string>
     <string name="text_preferences">Preferencias</string>
     <string name="text_account">Cuenta</string>
     <string name="text_support">Soporte</string>
@@ -96,6 +102,20 @@
     <!-- Delete password page -->
     <string name="delete_account_title">Eliminar Cuenta</string>
     <string name="delete_account_subtitle">¿Seguro desea eliminar su cuenta? Esta acción no se puede revertir. Ingrese su contraseña actual.</string>
-    <string name="btn_delete_account">Eliminar cuenta</string>"
+    <string name="btn_delete_account">Eliminar cuenta</string>
+
+    <!-- User CRUD -->
+    <!--<string name="edit_button">Editar</string>
+    <string name="delete_button">Borrar</string>-->
+    <string name="user_profile_image_desc">Imagen de perfil del usuario</string>
+    <string name="edit_user_option">Editar Usuario</string>
+    <string name="view_details_option">Ver Detalles</string>
+    <string name="delete_user_option">Eliminar Usuario</string>
+    <string name="cancel_option">Cancelar</string>
+    <string name="add_user_str">Agregar usuario</string>
+    <string name="hint_search_user">Buscar usuario…</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
