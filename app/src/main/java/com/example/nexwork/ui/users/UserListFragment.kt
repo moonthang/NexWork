@@ -7,26 +7,53 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.nexwork.Home
 import com.example.nexwork.R
 import com.example.nexwork.data.model.User
+import com.example.nexwork.databinding.FragmentUserListBinding
 
 class UserListFragment : Fragment() {
 
-    private lateinit var rvUsers: RecyclerView
+    private var _binding: FragmentUserListBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var userAdapter: UserAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_user_list, container, false)
-        rvUsers = view.findViewById(R.id.rvUsers)
+    ): View {
+        _binding = FragmentUserListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupHeader()
+        setupSearchView()
         setupRecyclerView()
-        return view
+    }
+
+    private fun setupHeader() {
+
+        // Creo que tocara usar Navigation Component para navegar entre fragmentos
+        binding.header.txtTitle.text = getString(R.string.btn_users_menu_str)
+        binding.header.btnBack.setOnClickListener {
+            val intent = Intent(requireActivity(), Home::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
+    }
+
+    private fun setupSearchView() {
+        val searchEditText = binding.searchLayout.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary))
+        searchEditText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary))
     }
 
     private fun setupRecyclerView() {
@@ -41,7 +68,7 @@ class UserListFragment : Fragment() {
         userAdapter = UserAdapter(dummyUsers) { user ->
             showUserOptionsDialog(user)
         }
-        rvUsers.apply {
+        binding.rvUsers.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
         }
@@ -60,13 +87,8 @@ class UserListFragment : Fragment() {
         title.text = "Opciones para ${user.firstName}"
 
         btnEdit.setOnClickListener {
-          /*  // --- ¡NUEVA LÓGICA AQUÍ! ---
-            // Inicia la EditProfileActivity cuando se pulsa el botón
-            val intent = Intent(requireContext(), EditProfileActivity::class.java)
-            // Opcional: pasar el ID del usuario a la actividad de edición
-            // intent.putExtra("USER_ID", user.id)
-            startActivity(intent)
-            dialog.dismiss()*/
+            // Lógica para editar usuario
+            dialog.dismiss()
         }
         btnDetails.setOnClickListener {
             // Lógica para ver detalles
@@ -81,5 +103,10 @@ class UserListFragment : Fragment() {
         }
 
         dialog.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

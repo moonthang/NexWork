@@ -12,18 +12,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Barra de búsqueda -->
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:queryHint="@string/hint_search_user"
-            android:background="@color/background_secondary"
-            android:iconifiedByDefault="false"
-            android:padding="8dp"
-            android:layout_margin="8dp"
-            android:textColorHint="@color/text_secondary"
-            app:queryBackground="@android:color/transparent"/>
+        <include
+            android:id="@+id/header"
+            layout="@layout/basic_header" />
+
+        <include
+            android:id="@+id/search_layout"
+            layout="@layout/search_view" />
 
         <!-- Lista de usuarios -->
         <androidx.recyclerview.widget.RecyclerView

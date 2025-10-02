@@ -117,5 +117,19 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Categories -->
+    <string name="categories_title">Categorías</string>
+    <string name="category_id_format">ID: %s</string>
+
+    <!-- Service History -->
+    <string name="service_history_title">Historial de Servicios</string>
+    <string name="client_format">Cliente: %s</string>
+    <string name="provider_format">Proveedor: %s</string>
+    <string name="date_format">Fecha: %s</string>
+    <string name="status_format">Estado: %s</string>
+    <string name="status_pending">Pendiente</string>
+    <string name="status_completed">Completado</string>
+    <string name="status_cancelled">Cancelado</string>
+
 
 </resources>
