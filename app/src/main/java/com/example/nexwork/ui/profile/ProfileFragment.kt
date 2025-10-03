@@ -73,7 +73,7 @@ class ProfileFragment : Fragment() {
                 .commit()
         }
 
-        //redirije hacia orders
+        //redirije hacia el historial de servicios
         val sectionManageOrders = view.findViewById<LinearLayout>(R.id.section_manage_orders)
         sectionManageOrders.setOnClickListener {
             parentFragmentManager.beginTransaction()

@@ -131,5 +131,9 @@
     <string name="status_completed">Completado</string>
     <string name="status_cancelled">Cancelado</string>
 
+    <!-- Generic Options -->
+    <string name="edit_option">Editar</string>
+    <string name="delete_option">Eliminar</string>
+
 
 </resources>

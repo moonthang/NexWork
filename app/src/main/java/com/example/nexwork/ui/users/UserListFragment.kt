@@ -1,28 +1,28 @@
 package com.example.nexwork.ui.users
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nexwork.Home
 import com.example.nexwork.R
+import com.example.nexwork.core.OptionsDialogFragment
 import com.example.nexwork.data.model.User
 import com.example.nexwork.databinding.FragmentUserListBinding
 
-class UserListFragment : Fragment() {
+class UserListFragment : Fragment(), UserAdapter.OnItemClickListener, OptionsDialogFragment.OptionsDialogListener {
 
     private var _binding: FragmentUserListBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var userAdapter: UserAdapter
+    private var selectedUser: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,44 +65,41 @@ class UserListFragment : Fragment() {
             User("4", "Carlos Ruiz", "carlos.ruiz@email.com")
         )
 
-        userAdapter = UserAdapter(dummyUsers) { user ->
-            showUserOptionsDialog(user)
-        }
+        userAdapter = UserAdapter(dummyUsers, this)
         binding.rvUsers.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
         }
     }
 
-    private fun showUserOptionsDialog(user: User) {
-        val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.dialog_user_options)
+    override fun onItemClick(user: User) {
+        selectedUser = user
+        val dialog = OptionsDialogFragment.newInstance(
+            title = user.firstName,
+            option1 = getString(R.string.edit_user_option),
+            option2 = getString(R.string.view_details_option),
+            option3 = getString(R.string.delete_user_option)
+        )
+        dialog.setOptionsDialogListener(this)
+        dialog.show(parentFragmentManager, "OptionsDialogFragment")
+    }
 
-        val title: TextView = dialog.findViewById(R.id.tvDialogTitle)
-        val btnEdit: Button = dialog.findViewById(R.id.btnEditUser)
-        val btnDetails: Button = dialog.findViewById(R.id.btnViewDetails)
-        val btnDelete: Button = dialog.findViewById(R.id.btnDeleteUser)
-        val btnCancel: Button = dialog.findViewById(R.id.btnCancel)
-
-        title.text = "Opciones para ${user.firstName}"
-
-        btnEdit.setOnClickListener {
-            // Lógica para editar usuario
-            dialog.dismiss()
+    override fun onOptionSelected(option: String) {
+        val user = selectedUser?.firstName ?: ""
+        when (option) {
+            getString(R.string.edit_user_option) -> {
+                // TODO: Implement edit logic
+                android.widget.Toast.makeText(requireContext(), "Edit user: $user", android.widget.Toast.LENGTH_SHORT).show()
+            }
+            getString(R.string.view_details_option) -> {
+                // TODO: Implement view details logic
+                android.widget.Toast.makeText(requireContext(), "View details for: $user", android.widget.Toast.LENGTH_SHORT).show()
+            }
+            getString(R.string.delete_user_option) -> {
+                // TODO: Implement delete logic
+                android.widget.Toast.makeText(requireContext(), "Delete user: $user", android.widget.Toast.LENGTH_SHORT).show()
+            }
         }
-        btnDetails.setOnClickListener {
-            // Lógica para ver detalles
-            dialog.dismiss()
-        }
-        btnDelete.setOnClickListener {
-            // Lógica para eliminar usuario
-            dialog.dismiss()
-        }
-        btnCancel.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialog.show()
     }
 
     override fun onDestroyView() {

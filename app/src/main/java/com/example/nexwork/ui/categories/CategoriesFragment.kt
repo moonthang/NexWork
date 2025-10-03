@@ -13,15 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nexwork.Home
 import com.example.nexwork.R
 import com.example.nexwork.databinding.FragmentCategoriesBinding
+import com.example.nexwork.core.OptionsDialogFragment
+import com.example.nexwork.data.model.Category
 import kotlin.jvm.java
 
-class CategoriesFragment : Fragment() {
+class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, OptionsDialogFragment.OptionsDialogListener {
 
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
 
     private val categoryViewModel: CategoryViewModel by viewModels()
     private lateinit var categoryAdapter: CategoryAdapter
+    private var selectedCategory: Category? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +62,7 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        categoryAdapter = CategoryAdapter(emptyList())
+        categoryAdapter = CategoryAdapter(emptyList(), this)
         binding.rvCategories.apply {
             adapter = categoryAdapter
             layoutManager = LinearLayoutManager(context)
@@ -70,6 +73,30 @@ class CategoriesFragment : Fragment() {
         categoryViewModel.categories.observe(viewLifecycleOwner) { categories ->
             categories?.let {
                 categoryAdapter.updateCategories(it)
+            }
+        }
+    }
+
+    override fun onItemClick(category: Category) {
+        selectedCategory = category
+        val dialog = OptionsDialogFragment.newInstance(
+            title = category.name,
+            option1 = getString(R.string.edit_option),
+            option2 = getString(R.string.delete_option)
+        )
+        dialog.setOptionsDialogListener(this)
+        dialog.show(parentFragmentManager, "OptionsDialogFragment")
+    }
+
+    override fun onOptionSelected(option: String) {
+        when (option) {
+            getString(R.string.edit_option) -> {
+                // TODO: Implement edit logic
+                android.widget.Toast.makeText(requireContext(), "Edit: ${selectedCategory?.name}", android.widget.Toast.LENGTH_SHORT).show()
+            }
+            getString(R.string.delete_option) -> {
+                // TODO: Implement delete logic
+                android.widget.Toast.makeText(requireContext(), "Delete: ${selectedCategory?.name}", android.widget.Toast.LENGTH_SHORT).show()
             }
         }
     }

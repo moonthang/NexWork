@@ -48,7 +48,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvClient"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tvServiceName"
-            tools:text="Proveedor: Clean & Refresh Services" />
+            tools:text="Proveedor: Clean &amp; Refresh Services" />
             
         <TextView
             android:id="@+id/tvDate"

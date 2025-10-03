@@ -19,6 +19,9 @@ import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.ui.services.MyServicesFragment
 import com.example.nexwork.ui.users.UserListFragment
 
+//ajustar la opcion de mostrar el modal para las categorias y para el historial de servicios
+
+// Opcional segun tiempo -> Implementar la vista de notificaciones
 class Home : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
