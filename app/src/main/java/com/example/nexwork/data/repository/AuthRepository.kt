@@ -99,4 +99,19 @@ class AuthRepository {
     fun getCurrentUserId(): String? {
         return auth.currentUser?.uid
     }
+
+    // Obtener el ID y el Nombre de los usuarios
+    fun getUsersIdsAndNames(onComplete: (Result<List<Pair<String, String>>>) -> Unit) {
+        usersCollection
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val idAndNames = querySnapshot.documents.map { document ->
+                    val id = document.id
+                    val name = document.getString("firstName") ?: ""
+                    Pair(id, name)
+                }
+                onComplete(Result.success(idAndNames))
+            }
+            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
 }

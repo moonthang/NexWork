@@ -1,4 +1,4 @@
-package com.example.nexwork
+package com.example.nexwork.ui.home
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.nexwork.R
+import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.data.model.User
 import com.example.nexwork.data.repository.AuthRepository
 import com.example.nexwork.ui.auth.Login
@@ -15,7 +17,6 @@ import com.example.nexwork.ui.profile.GuestProfileFragment
 import com.example.nexwork.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.example.nexwork.core.LoadingDialog
 
 class Home : AppCompatActivity() {
 
@@ -39,7 +40,7 @@ class Home : AppCompatActivity() {
             insets
         }
 
-        currentUserRole = intent.getStringExtra(Login.EXTRA_USER_ROLE)
+        currentUserRole = intent.getStringExtra(Login.Companion.EXTRA_USER_ROLE)
         auth = FirebaseAuth.getInstance()
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         mainScrollView = findViewById(R.id.main)
@@ -47,13 +48,19 @@ class Home : AppCompatActivity() {
         headerActivity = findViewById(R.id.header)
         loadingDialog = LoadingDialog(this)
 
-        if (currentUserRole == Login.ROLE_GUEST) {
+        if (currentUserRole == Login.Companion.ROLE_GUEST) {
             setupGuestMode()
         } else {
             setupAuthenticatedUser()
         }
 
-        bottomNavigationView.selectedItemId = R.id.btn_home
+        if (currentUserRole == "provider") {
+            loadFragment(HomeProviderFragment())
+            bottomNavigationView.selectedItemId = R.id.btn_home
+        } else {
+            showHomeContent()
+            bottomNavigationView.selectedItemId = R.id.btn_home
+        }
     }
 
     private fun setupGuestMode() {
@@ -136,7 +143,11 @@ class Home : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.btn_home -> {
-                    showHomeContent()
+                    if (user.role == "provider") {
+                        loadFragment(HomeProviderFragment())
+                    } else {
+                        showHomeContent()
+                    }
                     true
                 }
                 R.id.btn_profile -> {
@@ -147,6 +158,7 @@ class Home : AppCompatActivity() {
             }
         }
     }
+
 
     private fun showHomeContent() {
         fragmentContainer.visibility = View.GONE

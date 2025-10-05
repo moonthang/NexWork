@@ -10,7 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.nexwork.Home
+import com.example.nexwork.ui.home.Home
 import com.example.nexwork.R
 import com.example.nexwork.core.LoadingDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -89,9 +89,23 @@ class Login : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     if (user != null) {
-                        val intent = Intent(this, Home::class.java)
-                        startActivity(intent)
-                        finish()
+                        val db = FirebaseFirestore.getInstance()
+                        db.collection("users").document(user.uid).get()
+                            .addOnSuccessListener { document ->
+                                val role = document.getString("role") ?: "client"
+                                val intent = Intent(this, Home::class.java).apply {
+                                    putExtra(EXTRA_USER_ROLE, role)
+                                }
+                                startActivity(intent)
+                                finish()
+                            }
+                            .addOnFailureListener {
+                                val intent = Intent(this, Home::class.java).apply {
+                                    putExtra(EXTRA_USER_ROLE, ROLE_GUEST)
+                                }
+                                startActivity(intent)
+                                finish()
+                            }
                     }
                 } else {
                     handleLoginError(task.exception)
@@ -137,9 +151,25 @@ class Login : AppCompatActivity() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
-            finish()
+            loadingDialog.show()
+            db.collection("users").document(currentUser.uid).get()
+                .addOnSuccessListener { document ->
+                    loadingDialog.dismiss()
+                    val role = document.getString("role") ?: "client"
+                    val intent = Intent(this, Home::class.java).apply {
+                        putExtra(EXTRA_USER_ROLE, role)
+                    }
+                    startActivity(intent)
+                    finish()
+                }
+                .addOnFailureListener {
+                    loadingDialog.dismiss()
+                    val intent = Intent(this, Home::class.java).apply {
+                        putExtra(EXTRA_USER_ROLE, ROLE_GUEST)
+                    }
+                    startActivity(intent)
+                    finish()
+                }
         }
     }
 }
