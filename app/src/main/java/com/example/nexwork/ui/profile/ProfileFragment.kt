@@ -12,11 +12,15 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.nexwork.ui.home.Home
 import com.example.nexwork.R
+import com.example.nexwork.R.id.fragment_container
 import com.example.nexwork.data.model.User
 import com.example.nexwork.data.repository.AuthRepository
 import com.google.firebase.storage.FirebaseStorage
 import com.example.nexwork.core.LoadingDialog
+import com.example.nexwork.ui.categories.CategoriesFragment
 import com.example.nexwork.ui.profile.account.AccountFragment
+import com.example.nexwork.ui.services.MyServicesFragment
+import com.example.nexwork.ui.users.UserListFragment
 
 class ProfileFragment : Fragment() {
 
@@ -54,14 +58,41 @@ class ProfileFragment : Fragment() {
             loadingDialog.dismiss()
         }
 
+        // redirije a la account
         val sectionProfile = view.findViewById<View>(R.id.section_profile)
         sectionProfile.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AccountFragment())
+                .replace(fragment_container, AccountFragment())
                 .addToBackStack(null)
                 .commit()
         }
 
+        //redirije hacia users
+        val sectionManageUsers = view.findViewById<LinearLayout>(R.id.manage_users)
+        sectionManageUsers.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(fragment_container, UserListFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        //redirije hacia el historial de servicios
+        val sectionManageOrders = view.findViewById<LinearLayout>(R.id.section_manage_orders)
+        sectionManageOrders.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(fragment_container, MyServicesFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        // redirije hacia las categorias
+        val sectionCategories = view.findViewById<LinearLayout>(R.id.section_manage_categories)
+        sectionCategories.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(fragment_container, CategoriesFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
@@ -74,12 +105,15 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    //Manejo de visibilidad dependiendo el rol
     private fun setupUI(view: View, user: User) {
         val userName = view.findViewById<TextView>(R.id.user_name)
         val userRole = view.findViewById<TextView>(R.id.user_role)
         val profileImage = view.findViewById<ImageView>(R.id.profileImage)
         val sectionSavedList  = view.findViewById<LinearLayout>(R.id.section_saved_list)
         val sectionProviderPanel  = view.findViewById<LinearLayout>(R.id.section_provider_panel)
+        val sectionInviteFriends  = view.findViewById<LinearLayout>(R.id.section_invite_friends)
+
 
         userName.text = "${user.firstName} ${user.lastName}"
         userRole.text = user.role
@@ -99,6 +133,8 @@ class ProfileFragment : Fragment() {
             "admin" -> {
                 sectionSavedList.visibility = View.GONE
                 sectionProviderPanel.visibility = View.GONE
+                sectionInviteFriends.visibility = View.GONE
+
             }
         }
     }

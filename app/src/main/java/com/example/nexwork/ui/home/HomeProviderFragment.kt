@@ -20,14 +20,6 @@ class HomeProviderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home_provider, container, false)
-        val btnSeeMyServices: Button = view.findViewById(R.id.btn_see_my_services)
-
-        btnSeeMyServices.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, MyServicesFragment())
-                .addToBackStack(null)
-                .commit()
-        }
 
         val sectionManageAvailability = view.findViewById<RelativeLayout>(R.id.manage_availability)
         sectionManageAvailability.setOnClickListener {

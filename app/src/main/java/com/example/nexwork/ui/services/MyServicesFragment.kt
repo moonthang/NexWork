@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,9 +26,14 @@ class MyServicesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val headerView = view.findViewById<View>(R.id.header)
-        val titleTextView = headerView.findViewById<TextView>(R.id.txtTitle)
-        titleTextView.text = getString(R.string.my_services_title)
+        val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
+        val btnBack = view.findViewById<ImageView>(R.id.btnBack)
+
+        txtTitle.text = getString(R.string.my_services_title)
+
+        btnBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.services_recycler_view)
         // Muestra la lista de servicios verticalmente

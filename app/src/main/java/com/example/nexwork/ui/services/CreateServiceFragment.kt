@@ -124,6 +124,15 @@ class CreateServiceFragment : Fragment() {
         }
         viewModel.getUsers()
 
+        val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
+        val btnBack = view.findViewById<ImageView>(R.id.btnBack)
+
+        txtTitle.text = getString(R.string.create_service_title)
+
+        btnBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         setupListeners()
         observeViewModel()
         loadCurrentPlan()

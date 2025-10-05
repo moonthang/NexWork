@@ -71,11 +71,9 @@ class CreateCategoryFragment : Fragment() {
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
 
         txtTitle.text = getString(R.string.create_category_title)
+
         btnBack.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ProfileFragment())
-                .addToBackStack(null)
-                .commit()
+            parentFragmentManager.popBackStack()
         }
 
         setupListeners()
