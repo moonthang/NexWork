@@ -11,4 +11,9 @@
     <color name="error">#F44336</color>
     <color name="error_light">#F2847B</color>
     <color name="warning">#FF9800</color>
+
+    <!-- Colores para los estados   -->
+    <color name="status_pending">#FFC107</color>
+    <color name="status_completed">#4CAF50</color>
+    <color name="status_cancelled">#F44336</color>
 </resources>

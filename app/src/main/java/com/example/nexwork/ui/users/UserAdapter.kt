@@ -11,8 +11,12 @@ import com.example.nexwork.data.model.User
 
 class UserAdapter(
     private val users: List<User>,
-    private val onItemClick: (User) -> Unit
+    private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onItemClick(user: User)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
@@ -22,7 +26,7 @@ class UserAdapter(
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = users[position]
         holder.bind(user)
-        holder.itemView.setOnClickListener { onItemClick(user) }
+        holder.itemView.setOnClickListener { listener.onItemClick(user) }
     }
 
     override fun getItemCount(): Int = users.size

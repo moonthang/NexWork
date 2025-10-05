@@ -11,8 +11,13 @@ import com.example.nexwork.R
 import com.example.nexwork.data.model.Category
 
 class CategoryAdapter(
-    private var categories: List<Category>
+    private var categories: List<Category>,
+    private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onItemClick(category: Category)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -21,7 +26,11 @@ class CategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(categories[position])
+        val category = categories[position]
+        holder.bind(category)
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(category)
+        }
     }
 
     override fun getItemCount(): Int = categories.size

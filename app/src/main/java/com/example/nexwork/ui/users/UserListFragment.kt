@@ -1,32 +1,59 @@
 package com.example.nexwork.ui.users
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.EditText
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.nexwork.Home
 import com.example.nexwork.R
+import com.example.nexwork.core.OptionsDialogFragment
 import com.example.nexwork.data.model.User
+import com.example.nexwork.databinding.FragmentUserListBinding
 
-class UserListFragment : Fragment() {
+class UserListFragment : Fragment(), UserAdapter.OnItemClickListener, OptionsDialogFragment.OptionsDialogListener {
 
-    private lateinit var rvUsers: RecyclerView
+    private var _binding: FragmentUserListBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var userAdapter: UserAdapter
+    private var selectedUser: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_user_list, container, false)
-        rvUsers = view.findViewById(R.id.rvUsers)
+    ): View {
+        _binding = FragmentUserListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupHeader()
+        setupSearchView()
         setupRecyclerView()
-        return view
+    }
+
+    private fun setupHeader() {
+
+        // Creo que tocara usar Navigation Component para navegar entre fragmentos
+        binding.header.txtTitle.text = getString(R.string.btn_users_menu_str)
+        binding.header.btnBack.setOnClickListener {
+            val intent = Intent(requireActivity(), Home::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
+    }
+
+    private fun setupSearchView() {
+        val searchEditText = binding.searchLayout.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary))
+        searchEditText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary))
     }
 
     private fun setupRecyclerView() {
@@ -38,48 +65,45 @@ class UserListFragment : Fragment() {
             User("4", "Carlos Ruiz", "carlos.ruiz@email.com")
         )
 
-        userAdapter = UserAdapter(dummyUsers) { user ->
-            showUserOptionsDialog(user)
-        }
-        rvUsers.apply {
+        userAdapter = UserAdapter(dummyUsers, this)
+        binding.rvUsers.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = userAdapter
         }
     }
 
-    private fun showUserOptionsDialog(user: User) {
-        val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.dialog_user_options)
+    override fun onItemClick(user: User) {
+        selectedUser = user
+        val dialog = OptionsDialogFragment.newInstance(
+            title = user.firstName,
+            option1 = getString(R.string.edit_user_option),
+            option2 = getString(R.string.view_details_option),
+            option3 = getString(R.string.delete_user_option)
+        )
+        dialog.setOptionsDialogListener(this)
+        dialog.show(parentFragmentManager, "OptionsDialogFragment")
+    }
 
-        val title: TextView = dialog.findViewById(R.id.tvDialogTitle)
-        val btnEdit: Button = dialog.findViewById(R.id.btnEditUser)
-        val btnDetails: Button = dialog.findViewById(R.id.btnViewDetails)
-        val btnDelete: Button = dialog.findViewById(R.id.btnDeleteUser)
-        val btnCancel: Button = dialog.findViewById(R.id.btnCancel)
+    override fun onOptionSelected(option: String) {
+        val user = selectedUser?.firstName ?: ""
+        when (option) {
+            getString(R.string.edit_user_option) -> {
+                // TODO: Implement edit logic
+                android.widget.Toast.makeText(requireContext(), "Edit user: $user", android.widget.Toast.LENGTH_SHORT).show()
+            }
+            getString(R.string.view_details_option) -> {
+                // TODO: Implement view details logic
+                android.widget.Toast.makeText(requireContext(), "View details for: $user", android.widget.Toast.LENGTH_SHORT).show()
+            }
+            getString(R.string.delete_user_option) -> {
+                // TODO: Implement delete logic
+                android.widget.Toast.makeText(requireContext(), "Delete user: $user", android.widget.Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
-        title.text = "Opciones para ${user.firstName}"
-
-        btnEdit.setOnClickListener {
-          /*  // --- ¡NUEVA LÓGICA AQUÍ! ---
-            // Inicia la EditProfileActivity cuando se pulsa el botón
-            val intent = Intent(requireContext(), EditProfileActivity::class.java)
-            // Opcional: pasar el ID del usuario a la actividad de edición
-            // intent.putExtra("USER_ID", user.id)
-            startActivity(intent)
-            dialog.dismiss()*/
-        }
-        btnDetails.setOnClickListener {
-            // Lógica para ver detalles
-            dialog.dismiss()
-        }
-        btnDelete.setOnClickListener {
-            // Lógica para eliminar usuario
-            dialog.dismiss()
-        }
-        btnCancel.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialog.show()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

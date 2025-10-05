@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -16,36 +18,42 @@
         android:layout_marginBottom="24dp"/>
 
     <Button
-        android:id="@+id/btnEditUser"
+        android:id="@+id/btnOption1"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/edit_user_option"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/button_primary_background"
-        android:layout_marginBottom="8dp"/>
-
-    <Button
-        android:id="@+id/btnViewDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/view_details_option"
-        android:backgroundTint="@color/button_primary_background"
-        android:layout_marginBottom="8dp"/>
-
-    <Button
-        android:id="@+id/btnDeleteUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_user_option"
         android:textColor="@android:color/white"
+        tools:text="Option 1"/>
+
+    <Button
+        android:id="@+id/btnOption2"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/button_primary_background"
+        android:textColor="@android:color/white"
+        tools:text="Option 2"/>
+
+    <Button
+        android:id="@+id/btnOption3"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/error"
-        android:layout_marginBottom="16dp"/>
+        android:textColor="@android:color/white"
+        tools:text="Option 3 (Destructive)"/>
 
     <Button
         android:id="@+id/btnCancel"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/cancel_option"
-        android:backgroundTint="@color/button_primary_background"
-        />
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:text="@string/cancel_option" />
 
 </LinearLayout>

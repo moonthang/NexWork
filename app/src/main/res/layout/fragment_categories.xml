@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary"
-    tools:context=".ui.users.UserListFragment">
+    tools:context=".ui.categories.CategoriesFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,28 +20,28 @@
             android:id="@+id/search_layout"
             layout="@layout/search_view" />
 
-        <!-- Lista de usuarios -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvUsers"
+            android:id="@+id/rv_categories"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:padding="8dp"
-            tools:listitem="@layout/item_user"/>
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_category" />
 
     </LinearLayout>
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddUser"
+        android:id="@+id/fabAddCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/add_user_str"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/add_new_service_button"
         android:src="@drawable/ic_circle_button_add"
         app:backgroundTint="@color/accent"
-        app:tint="@color/text_primary"
-        app:layout_anchorGravity="bottom|end"
-        android:layout_margin="16dp"
-        app:layout_anchor="@id/rvUsers" />
+        app:tint="@color/text_primary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
