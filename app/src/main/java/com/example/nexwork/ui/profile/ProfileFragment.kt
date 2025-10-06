@@ -99,9 +99,7 @@ class ProfileFragment : Fragment() {
 
         txtTitle.text = getString(R.string.profile_title)
         btnBack.setOnClickListener {
-            val intent = Intent(requireActivity(), Home::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            parentFragmentManager.popBackStack()
         }
     }
 

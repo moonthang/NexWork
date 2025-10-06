@@ -48,8 +48,8 @@ class CategoryAdapter(
 
         fun bind(category: Category) {
             nameTextView.text = category.name
-            descriptionTextView.text = category.description
-            idTextView.text = itemView.context.getString(R.string.category_id_format, category.id)
+            //descriptionTextView.text = category.description
+            idTextView.text = itemView.context.getString(R.string.category_id_format, category.categoryId)
 
             // Usamos Glide para cargar la imagen (asegúrate de tener la dependencia)
             Glide.with(itemView.context)
