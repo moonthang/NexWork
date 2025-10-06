@@ -1,4 +1,4 @@
-package com.example.nexwork
+package com.example.nexwork.ui.home
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.nexwork.R
+import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.data.model.User
 import com.example.nexwork.data.repository.AuthRepository
 import com.example.nexwork.ui.auth.Login
@@ -15,13 +17,7 @@ import com.example.nexwork.ui.profile.GuestProfileFragment
 import com.example.nexwork.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.example.nexwork.core.LoadingDialog
-import com.example.nexwork.ui.services.MyServicesFragment
-import com.example.nexwork.ui.users.UserListFragment
 
-//ajustar la opcion de mostrar el modal para las categorias y para el historial de servicios
-
-// Opcional segun tiempo -> Implementar la vista de notificaciones
 class Home : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
@@ -44,7 +40,7 @@ class Home : AppCompatActivity() {
             insets
         }
 
-        currentUserRole = intent.getStringExtra(Login.EXTRA_USER_ROLE)
+        currentUserRole = intent.getStringExtra(Login.Companion.EXTRA_USER_ROLE)
         auth = FirebaseAuth.getInstance()
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         mainScrollView = findViewById(R.id.main)
@@ -52,13 +48,19 @@ class Home : AppCompatActivity() {
         headerActivity = findViewById(R.id.header)
         loadingDialog = LoadingDialog(this)
 
-        if (currentUserRole == Login.ROLE_GUEST) {
+        if (currentUserRole == Login.Companion.ROLE_GUEST) {
             setupGuestMode()
         } else {
             setupAuthenticatedUser()
         }
 
-        bottomNavigationView.selectedItemId = R.id.btn_home
+        if (currentUserRole == "provider") {
+            loadFragment(HomeProviderFragment())
+            bottomNavigationView.selectedItemId = R.id.btn_home
+        } else {
+            showHomeContent()
+            bottomNavigationView.selectedItemId = R.id.btn_home
+        }
     }
 
     private fun setupGuestMode() {
@@ -128,11 +130,9 @@ class Home : AppCompatActivity() {
                 menu.findItem(R.id.btn_notifications).isVisible = false
             }
             "admin" -> {
-                menu.findItem(R.id.btn_home).isVisible = true
-                menu.findItem(R.id.btn_profile).isVisible = true
-                menu.findItem(R.id.btn_messages).isVisible = false
-                menu.findItem(R.id.btn_notifications).isVisible = false
-
+                menu.findItem(R.id.btn_messages).isVisible = true
+                menu.findItem(R.id.btn_category).isVisible = true
+                menu.findItem(R.id.btn_notifications).isVisible = true
             }
             else -> {
                 setupBottomNavigationForGuest()
@@ -143,18 +143,22 @@ class Home : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.btn_home -> {
-                    showHomeContent()
+                    if (user.role == "provider") {
+                        loadFragment(HomeProviderFragment())
+                    } else {
+                        showHomeContent()
+                    }
                     true
                 }
                 R.id.btn_profile -> {
                     loadFragment(ProfileFragment())
                     true
                 }
-
                 else -> false
             }
         }
     }
+
 
     private fun showHomeContent() {
         fragmentContainer.visibility = View.GONE

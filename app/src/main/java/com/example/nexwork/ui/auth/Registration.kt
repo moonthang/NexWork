@@ -13,7 +13,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.nexwork.Home
+import com.example.nexwork.ui.home.Home
 import com.example.nexwork.R
 import com.example.nexwork.core.LoadingDialog
 import java.util.Calendar
@@ -60,7 +60,9 @@ class Registration : AppCompatActivity() {
                 is RegistrationState.Success -> {
                     loadingDialog.dismiss()
                     Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, Home::class.java)
+                    val intent = Intent(this, Home::class.java).apply {
+                        putExtra(Login.EXTRA_USER_ROLE, userRole)
+                    }
                     startActivity(intent)
                     finish()
                 }

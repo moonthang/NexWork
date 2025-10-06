@@ -10,11 +10,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.nexwork.Home
 import com.example.nexwork.R
 import com.example.nexwork.databinding.FragmentCategoriesBinding
 import com.example.nexwork.core.OptionsDialogFragment
 import com.example.nexwork.data.model.Category
+import com.example.nexwork.ui.home.Home
 import kotlin.jvm.java
 
 class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, OptionsDialogFragment.OptionsDialogListener {
@@ -36,11 +36,18 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         setupHeader()
         setupRecyclerView()
         observeViewModel()
-        
+
+        binding.fabAddCategory.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, CreateCategoryFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         categoryViewModel.fetchCategories()
     }
 

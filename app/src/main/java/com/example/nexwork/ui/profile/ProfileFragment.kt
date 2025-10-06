@@ -10,7 +10,7 @@ import android.widget.TextView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.nexwork.Home
+import com.example.nexwork.ui.home.Home
 import com.example.nexwork.R
 import com.example.nexwork.R.id.fragment_container
 import com.example.nexwork.data.model.User
@@ -40,11 +40,14 @@ class ProfileFragment : Fragment() {
         loadingDialog = LoadingDialog(requireContext())
         loadingDialog.show()
 
+        // Obtener el ID del usuario actual
         val currentUserId = authRepository.getCurrentUserId()
         if (currentUserId != null) {
+            // Obtener los detalles del usuario
             authRepository.getUserById(currentUserId) { result ->
                 loadingDialog.dismiss()
                 if (result.isSuccess) {
+                    // Actualizar la interfaz de usuario con los detalles del usuario
                     val user = result.getOrNull()
                     if (user != null) {
                         setupUI(view, user)
@@ -91,9 +94,6 @@ class ProfileFragment : Fragment() {
                 .commit()
         }
 
-
-
-
         val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
 
@@ -120,6 +120,7 @@ class ProfileFragment : Fragment() {
 
         loadProfileImage(user.profileImageUrl, profileImage)
 
+        // Mostrar u ocultar secciones según el rol del usuario
         when (user.role) {
             "client" -> {
                 sectionSavedList.visibility = View.VISIBLE
@@ -139,6 +140,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadProfileImage(imagePath: String?, imageView: ImageView) {
+        // Cargar la imagen de perfil
         if (imagePath.isNullOrEmpty()) {
             Glide.with(this)
                 .load(R.drawable.ic_profile)
@@ -146,12 +148,14 @@ class ProfileFragment : Fragment() {
             return
         }
 
+        // Si la URL de la imagen contiene "http", cargarla directamente
         if (imagePath.startsWith("http")) {
             Glide.with(this)
                 .load(imagePath)
                 .placeholder(R.drawable.ic_profile)
                 .into(imageView)
         } else {
+            // Si la URL no contiene "http", descargarla de Firebase Storage
             val imageRef = FirebaseStorage.getInstance().reference.child(imagePath)
             imageRef.downloadUrl.addOnSuccessListener { uri ->
                 Glide.with(this)
@@ -159,6 +163,7 @@ class ProfileFragment : Fragment() {
                     .placeholder(R.drawable.ic_profile)
                     .into(imageView)
             }.addOnFailureListener {
+                // Si falla al descargar la imagen, cargar una imagen predeterminada
                 Glide.with(this)
                     .load(R.drawable.ic_profile)
                     .into(imageView)

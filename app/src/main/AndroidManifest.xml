@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NexWork">
         <activity
-            android:name=".Home"
+            android:name=".ui.home.Home"
             android:exported="false" />
         <activity
             android:name=".ui.auth.ForgotPassword"
@@ -26,7 +26,7 @@
             android:name=".ui.auth.Welcome"
             android:exported="true" />
         <activity
-            android:name=".Splash"
+            android:name=".ui.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

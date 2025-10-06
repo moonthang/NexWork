@@ -53,6 +53,9 @@
     <string name="my_services_title">Mis Servicios</string>
     <string name="add_new_service_button">Agregar Nuevo Servicio</string>
 
+    <!-- User CRUD -->
+    <string name="edit_button">Editar</string>
+    <string name="delete_button">Borrar</string>
 
     <!-- Profile page -->
     <string name="profile_title">Perfil</string>
@@ -134,6 +137,43 @@
     <!-- Generic Options -->
     <string name="edit_option">Editar</string>
     <string name="delete_option">Eliminar</string>
+
+    <!-- Home provider page -->
+    <string name="home_provider_title">Panel de Proveedor</string>
+    <string name="text_manage_availability">Gestionar disponibilidad</string>
+    <string name="text_view_reviews">Ver reseñas</string>
+    <string name="btn_see_my_service">Ver mis servicios</string>
+
+    <!-- Create service page -->
+    <string name="create_service_title">Crear Servicio</string>
+    <string name="create_service_subtitlen">Agrega hasta tres ofertas diferentes para tu servicio. Cada oferta debe incluir un título, descripción, precio y opciones de personalización.</string>
+    <string name="offer_tab_simple">Sencillo</string>
+    <string name="offer_tab_basic">Básico</string>
+    <string name="offer_tab_premium">Premium</string>
+    <string name="text_user_name">Nombre de usuario</string>
+    <string name="text_offer_title">Título de la oferta</string>
+    <string name="hint_offer_title">Ej. Paquete sencillo incluye...</string>
+    <string name="text_category">Categoría</string>
+    <string name="hint_category">Ej. Diseño de...</string>
+    <string name="text_offer_description">Descripción de la oferta</string>
+    <string name="text_upload_images">Subir imágenes</string>
+    <string name="condition_upload_image">Máximo 3 fotos - Tamaño máximo 5MB</string>
+    <string name="text_offer_price">Precio de la oferta</string>
+    <string name="hint_offer_price">Ej. $50.000</string>
+    <string name="add_ons_title">Complementos de la oferta</string>
+    <string name="text_add_on_name">Nombre del complemento</string>
+    <string name="hint_add_on_name">Ej. Duración</string>
+    <string name="text_add_on_description">Descripción del complemento</string>
+    <string name="hint_add_on_description">Ej. 3 Horas</string>
+    <string name="btn_add_another_addon">Agregar otro complemento</string>
+    <string name="btn_create_service">Agregar Servicio</string>
+
+    <!-- Create category page -->
+    <string name="create_category_title">Crear Categoría</string>
+    <string name="create_category_subtitlen">Agrega la categoría con nombre e imagen referente.</string>
+    <string name="text_category_title">Título de la categoría</string>
+    <string name="text_upload_image_category">Subir imagen</string>
+    <string name="btn_create_category">Agregar Categoría</string>
 
 
 </resources>
