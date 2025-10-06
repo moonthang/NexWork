@@ -16,10 +16,10 @@ class CategoryViewModel : ViewModel() {
     fun fetchCategories() {
         // Implementacion de logica con firebase HERE => TODO
         val dummyCategories = listOf(
-            Category("1", "Hogar", "Servicios de limpieza y mantenimiento para tu casa.", ""),
-            Category("2", "Oficina", "Soluciones de limpieza para espacios de trabajo.", ""),
-            Category("3", "Automóvil", "Cuidado y limpieza detallada para tu vehículo.", ""),
-            Category("4", "Jardinería", "Mantenimiento de áreas verdes y jardines.", "")
+            Category("1", "Hogar", ""),
+            Category("2", "Oficina", ""),
+            Category("3", "Automóvil", ""),
+            Category("4", "Jardinería", "")
         )
         _categories.value = dummyCategories
     }

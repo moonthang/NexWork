@@ -29,6 +29,14 @@ class HomeProviderFragment : Fragment() {
                 .commit()
         }
 
+        val seeMyServices = view.findViewById<Button>(R.id.btn_see_my_services)
+        seeMyServices.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, MyServicesFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         return view
     }
 

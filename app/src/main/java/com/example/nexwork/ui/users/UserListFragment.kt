@@ -10,11 +10,11 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.nexwork.Home
 import com.example.nexwork.R
 import com.example.nexwork.core.OptionsDialogFragment
 import com.example.nexwork.data.model.User
 import com.example.nexwork.databinding.FragmentUserListBinding
+import com.example.nexwork.ui.home.Home
 
 class UserListFragment : Fragment(), UserAdapter.OnItemClickListener, OptionsDialogFragment.OptionsDialogListener {
 
