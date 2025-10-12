@@ -124,13 +124,22 @@ class CreateServiceFragment : Fragment() {
         }
         viewModel.getUsers()
 
-        val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
-        val btnBack = view.findViewById<ImageView>(R.id.btnBack)
+        val basic_header = view.findViewById<View>(R.id.header)
+        val btnNotification = basic_header.findViewById<ImageView>(R.id.btnNotification)
+        val btnSearch = basic_header.findViewById<ImageView>(R.id.btnSearch)
+        val btnFilter = basic_header.findViewById<ImageView>(R.id.btnFilter)
+        val btnOptions = basic_header.findViewById<ImageView>(R.id.btnOptions)
+        val txtTitle = basic_header.findViewById<TextView>(R.id.txtTitle)
+        val btnBack = basic_header.findViewById<ImageView>(R.id.btnBack)
 
-        txtTitle.text = getString(R.string.create_service_title)
+        btnNotification.visibility = View.GONE
+        btnSearch.visibility = View.GONE
+        btnFilter.visibility = View.GONE
+        btnOptions.visibility = View.GONE
 
+        txtTitle.setText(getString(R.string.create_service_title))
         btnBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         setupListeners()
