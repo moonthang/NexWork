@@ -1,6 +1,5 @@
 package com.example.nexwork.ui.categories
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,32 +10,37 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nexwork.R
+import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.databinding.FragmentCategoriesBinding
 import com.example.nexwork.core.OptionsDialogFragment
 import com.example.nexwork.data.model.Category
-import com.example.nexwork.ui.home.Home
-import kotlin.jvm.java
 
 class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, OptionsDialogFragment.OptionsDialogListener {
 
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
-
     private val categoryViewModel: CategoryViewModel by viewModels()
     private lateinit var categoryAdapter: CategoryAdapter
     private var selectedCategory: Category? = null
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
+
+        binding.CategoriesFragment.visibility = View.GONE
+
+        loadingDialog = LoadingDialog(requireContext())
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadingDialog.show()
         setupHeader()
         setupRecyclerView()
         observeViewModel()
@@ -52,14 +56,15 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
     }
 
     private fun setupHeader() {
-
         binding.header.txtTitle.text = getString(R.string.categories_title)
         binding.header.btnBack.setOnClickListener {
-            val intent = Intent(requireActivity(), Home::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
+
+        binding.header.btnNotification.visibility = View.GONE
+        binding.header.btnSearch.visibility = View.GONE
+        binding.header.btnFilter.visibility = View.GONE
+        binding.header.btnOptions.visibility = View.GONE
     }
 
     private fun setupSearchView() {
@@ -78,6 +83,9 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
 
     private fun observeViewModel() {
         categoryViewModel.categories.observe(viewLifecycleOwner) { categories ->
+            loadingDialog.dismiss()
+            binding.CategoriesFragment.visibility = View.VISIBLE
+
             categories?.let {
                 categoryAdapter.updateCategories(it)
             }

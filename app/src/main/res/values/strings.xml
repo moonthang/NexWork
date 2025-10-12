@@ -116,7 +116,7 @@
     <string name="delete_user_option">Eliminar Usuario</string>
     <string name="cancel_option">Cancelar</string>
     <string name="add_user_str">Agregar usuario</string>
-    <string name="hint_search_user">Buscar usuario…</string>
+    <string name="hint_search">Buscar…</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -175,5 +175,9 @@
     <string name="text_upload_image_category">Subir imagen</string>
     <string name="btn_create_category">Agregar Categoría</string>
 
+    <!-- service search -->
+    <string name="btn_price">Precio</string>
+    <string name="btn_availability">Disponibilidad</string>"
+    <string name="btn_location">Ubicación</string>
 
 </resources>

@@ -24,7 +24,6 @@ import java.util.Calendar
 class AccountFragment : Fragment() {
 
     private val viewModel: AccountViewModel by viewModels()
-
     private lateinit var profileFields: List<EditText>
     private lateinit var profileImage: ImageView
     private lateinit var btnEdit: Button
@@ -55,12 +54,14 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_account, container, false)
+        val contentLayout = view.findViewById<View>(R.id.AccountFragment)
+        contentLayout.visibility = View.GONE
+
         loadingDialog = LoadingDialog(requireContext())
 
         bindViews(view)
         setupListeners()
         observeViewModel()
-
         loadingDialog.show()
         viewModel.loadUserData()
         setEditMode(false)
@@ -80,6 +81,24 @@ class AccountFragment : Fragment() {
                     else -> sectionBankAccount.visibility = View.GONE
                 }
             }
+        }
+
+        val basic_header = view.findViewById<View>(R.id.header)
+        val btnNotification = basic_header.findViewById<ImageView>(R.id.btnNotification)
+        val btnSearch = basic_header.findViewById<ImageView>(R.id.btnSearch)
+        val btnFilter = basic_header.findViewById<ImageView>(R.id.btnFilter)
+        val btnOptions = basic_header.findViewById<ImageView>(R.id.btnOptions)
+        val txtTitle = basic_header.findViewById<TextView>(R.id.txtTitle)
+        val btnBack = basic_header.findViewById<ImageView>(R.id.btnBack)
+
+        btnNotification.visibility = View.GONE
+        btnSearch.visibility = View.GONE
+        btnFilter.visibility = View.GONE
+        btnOptions.visibility = View.GONE
+
+        txtTitle.setText(getString(R.string.account_title))
+        btnBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         val sectionChangePassword = view.findViewById<LinearLayout>(R.id.section_change_password)
@@ -103,17 +122,6 @@ class AccountFragment : Fragment() {
             val intent = Intent(requireContext(), Login::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-        }
-
-        val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
-        val btnBack = view.findViewById<ImageView>(R.id.btnBack)
-
-        txtTitle.text = getString(R.string.account_title)
-        btnBack.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ProfileFragment())
-                .addToBackStack(null)
-                .commit()
         }
     }
 
@@ -264,6 +272,7 @@ class AccountFragment : Fragment() {
             )
 
             loadingDialog.dismiss()
+            view?.findViewById<View>(R.id.AccountFragment)?.visibility = View.VISIBLE
         }
 
         viewModel.profileImageUrl.observe(viewLifecycleOwner) { url ->

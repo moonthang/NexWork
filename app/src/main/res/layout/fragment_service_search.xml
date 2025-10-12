@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    tools:context=".ui.services.ServiceSearchFragment">
+
+    <LinearLayout
+        android:id="@+id/search_filter_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/background_primary"
+        android:elevation="4dp">
+
+    <include
+            android:id="@+id/search_layout"
+            layout="@layout/search_view" />
+
+        <HorizontalScrollView
+            android:id="@+id/filter_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/filter_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/btn_price"
+                    android:textColor="@color/accent"
+                    android:textSize="18sp"
+                    app:backgroundTint="@color/background_primary"
+                    app:strokeColor="@color/accent"
+                    app:strokeWidth="2dp" />
+
+                <Button
+                    android:id="@+id/btn_availability"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/btn_availability"
+                    android:textColor="@color/accent"
+                    android:textSize="18sp"
+                    app:backgroundTint="@color/background_primary"
+                    app:strokeColor="@color/accent"
+                    app:strokeWidth="2dp" />
+
+                <Button
+                    android:id="@+id/btn_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/btn_location"
+                    android:textColor="@color/accent"
+                    android:textSize="18sp"
+                    app:backgroundTint="@color/background_primary"
+                    app:strokeColor="@color/accent"
+                    app:strokeWidth="2dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_categories"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_filter_layout"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_service" />
+</RelativeLayout>
