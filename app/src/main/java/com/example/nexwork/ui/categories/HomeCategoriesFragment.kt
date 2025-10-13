@@ -1,20 +1,25 @@
-package com.example.nexwork.ui.auth
+package com.example.nexwork.ui.categories
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import com.example.nexwork.R
 
-class ForgotPassword : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_forgot_password)
 
-        val basic_header = findViewById<View>(R.id.header)
+class HomeCategoriesFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_home_categories, container, false)
+
+
+        val basic_header = view.findViewById<View>(R.id.header)
         val btnNotification = basic_header.findViewById<ImageView>(R.id.btnNotification)
         val btnSearch = basic_header.findViewById<ImageView>(R.id.btnSearch)
         val btnFilter = basic_header.findViewById<ImageView>(R.id.btnFilter)
@@ -27,9 +32,12 @@ class ForgotPassword : AppCompatActivity() {
         btnFilter.visibility = View.GONE
         btnOptions.visibility = View.GONE
 
-        txtTitle.setText(getString(R.string.forgot_password_title))
+        txtTitle.setText(getString(R.string.categories_title))
         btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
+
+        return view
     }
+
 }

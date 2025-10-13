@@ -32,11 +32,16 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val contentLayout = view.findViewById<View>(R.id.ProfileFragment)
+        contentLayout.visibility = View.GONE
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val contentLayout = view.findViewById<View>(R.id.ProfileFragment)
         loadingDialog = LoadingDialog(requireContext())
         loadingDialog.show()
 
@@ -46,6 +51,7 @@ class ProfileFragment : Fragment() {
             // Obtener los detalles del usuario
             authRepository.getUserById(currentUserId) { result ->
                 loadingDialog.dismiss()
+                contentLayout.visibility = View.VISIBLE
                 if (result.isSuccess) {
                     // Actualizar la interfaz de usuario con los detalles del usuario
                     val user = result.getOrNull()
@@ -56,9 +62,10 @@ class ProfileFragment : Fragment() {
             }
         } else {
             loadingDialog.dismiss()
+            contentLayout.visibility = View.VISIBLE
         }
 
-        // redirije a la account
+        // redirije a account
         val sectionProfile = view.findViewById<View>(R.id.section_profile)
         sectionProfile.setOnClickListener {
             parentFragmentManager.beginTransaction()
@@ -94,12 +101,22 @@ class ProfileFragment : Fragment() {
                 .commit()
         }
 
-        val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
-        val btnBack = view.findViewById<ImageView>(R.id.btnBack)
+        val basic_header = view.findViewById<View>(R.id.header)
+        val btnNotification = basic_header.findViewById<ImageView>(R.id.btnNotification)
+        val btnSearch = basic_header.findViewById<ImageView>(R.id.btnSearch)
+        val btnFilter = basic_header.findViewById<ImageView>(R.id.btnFilter)
+        val btnOptions = basic_header.findViewById<ImageView>(R.id.btnOptions)
+        val txtTitle = basic_header.findViewById<TextView>(R.id.txtTitle)
+        val btnBack = basic_header.findViewById<ImageView>(R.id.btnBack)
 
-        txtTitle.text = getString(R.string.profile_title)
+        btnNotification.visibility = View.GONE
+        btnSearch.visibility = View.GONE
+        btnFilter.visibility = View.GONE
+        btnOptions.visibility = View.GONE
+
+        txtTitle.setText(getString(R.string.profile_title))
         btnBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 
@@ -110,6 +127,9 @@ class ProfileFragment : Fragment() {
         val profileImage = view.findViewById<ImageView>(R.id.profileImage)
         val sectionSavedList  = view.findViewById<LinearLayout>(R.id.section_saved_list)
         val sectionProviderPanel  = view.findViewById<LinearLayout>(R.id.section_provider_panel)
+        val sectionManageUsers  = view.findViewById<LinearLayout>(R.id.manage_users)
+        val sectionManageOrders  = view.findViewById<LinearLayout>(R.id.section_manage_orders)
+        val sectionManageCategories  = view.findViewById<LinearLayout>(R.id.section_manage_categories)
         val sectionInviteFriends  = view.findViewById<LinearLayout>(R.id.section_invite_friends)
 
 
@@ -123,10 +143,16 @@ class ProfileFragment : Fragment() {
             "client" -> {
                 sectionSavedList.visibility = View.VISIBLE
                 sectionProviderPanel.visibility = View.GONE
+                sectionManageOrders.visibility = View.VISIBLE
+                sectionManageCategories.visibility = View.GONE
+                sectionManageUsers.visibility = View.GONE
             }
             "provider" -> {
                 sectionSavedList.visibility = View.GONE
                 sectionProviderPanel.visibility = View.VISIBLE
+                sectionManageOrders.visibility = View.VISIBLE
+                sectionManageCategories.visibility = View.GONE
+                sectionManageUsers.visibility = View.GONE
             }
             "admin" -> {
                 sectionSavedList.visibility = View.GONE

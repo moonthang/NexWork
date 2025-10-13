@@ -30,6 +30,7 @@ class ServiceAdapter(private val onClick: (Service) -> Unit) :
     }
 
     class ServiceViewHolder(itemView: View, val onClick: (Service) -> Unit) : RecyclerView.ViewHolder(itemView) {
+        private val favoriteLayout: LinearLayout = itemView.findViewById(R.id.favorite_layout)
         private val ratingLayout: LinearLayout = itemView.findViewById(R.id.rating_layout)
         private val nameTextView: TextView = itemView.findViewById(R.id.service_name)
         private val descriptionTextView: TextView = itemView.findViewById(R.id.service_description)
@@ -51,6 +52,7 @@ class ServiceAdapter(private val onClick: (Service) -> Unit) :
             currentService = service
             nameTextView.text = service.title
             ratingLayout.visibility = View.GONE
+            favoriteLayout.visibility = View.GONE
 
             // Obtener el primer plan de la lista 'Sencillo'
             val simplePlan = service.plans.getOrNull(0)
