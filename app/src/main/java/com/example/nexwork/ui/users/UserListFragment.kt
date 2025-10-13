@@ -1,6 +1,5 @@
 package com.example.nexwork.ui.users
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import com.example.nexwork.R
 import com.example.nexwork.core.OptionsDialogFragment
 import com.example.nexwork.data.model.User
 import com.example.nexwork.databinding.FragmentUserListBinding
-import com.example.nexwork.ui.home.Home
 
 class UserListFragment : Fragment(),
     UserAdapter.OnItemClickListener,
@@ -39,6 +37,7 @@ class UserListFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupFabAddUserClickListener()
         setupHeader()
         setupSearchView()
         setupRecyclerView()
@@ -92,6 +91,16 @@ class UserListFragment : Fragment(),
             }
         }
     }
+
+    private fun setupFabAddUserClickListener() {
+        binding.fabAddUser.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, CreateUserFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
 
     override fun onItemClick(user: User) {
         selectedUser = user

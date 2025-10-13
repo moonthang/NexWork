@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    android:fillViewport="true"
+    tools:context=".ui.users.CreateUserFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/basic_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_marginTop="50dp" >
+
+
+                <EditText
+                    android:id="@+id/hint_first_name"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="25dp"
+                    android:autofillHints="@string/hint_first_name"
+                    android:background="@drawable/edittext_background"
+                    android:hint="@string/hint_first_name"
+                    android:inputType="text"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp"
+                    android:padding="12dp"
+                    android:paddingStart="25dp" />
+
+                <EditText
+                    android:id="@+id/hint_last_name"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:autofillHints="@string/hint_last_name"
+                    android:background="@drawable/edittext_background"
+                    android:hint="@string/hint_last_name"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"/>
+
+                <EditText
+                    android:id="@+id/hint_email"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:autofillHints="@string/hint_email"
+                    android:background="@drawable/edittext_background"
+                    android:hint="@string/hint_email"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"/>
+
+                <EditText
+                    android:id="@+id/hint_birth_date"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edittext_background"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_birth_date"
+                    android:padding="12dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp"
+                    android:paddingStart="25dp" />
+
+                <EditText
+                    android:id="@+id/hint_phone"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:autofillHints="@string/hint_phone"
+                    android:background="@drawable/edittext_background"
+                    android:hint="@string/hint_phone"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp"
+                    android:padding="12dp"
+                    android:paddingStart="25dp" />
+
+                <EditText
+                    android:id="@+id/hint_password"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:autofillHints="@string/hint_password"
+                    android:background="@drawable/edittext_background"
+                    android:hint="@string/hint_password"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/hint_confirm_password"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:autofillHints="@string/hint_confirm_password"
+                    android:background="@drawable/edittext_background"
+                    android:hint="@string/hint_confirm_password"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:inputType="textPassword" />
+
+                <Spinner
+                    android:id="@+id/spinner_role"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edittext_background"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:spinnerMode="dropdown" />
+
+                <LinearLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="20dp">
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_register"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    app:backgroundTint="@color/button_primary_background"
+                    android:text="@string/create_user_str"
+                    android:textColor="@color/text_primary"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -42,7 +42,6 @@ class CategoryAdapter(
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.tv_category_name)
-        private val descriptionTextView: TextView = itemView.findViewById(R.id.tv_category_description)
         private val idTextView: TextView = itemView.findViewById(R.id.tv_category_id)
         private val imageView: ImageView = itemView.findViewById(R.id.iv_category_image)
 

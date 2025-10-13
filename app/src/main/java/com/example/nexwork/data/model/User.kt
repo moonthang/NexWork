@@ -1,5 +1,6 @@
 package com.example.nexwork.data.model
 
+
 data class User(
     var userId: String = "",
     val firstName: String = "",
@@ -7,6 +8,7 @@ data class User(
     val email: String = "",
     val birthDate: String = "",
     val phone: String = "",
+    val password: String = "",
     val role: String = "user",
     val profileImageUrl: String = ""
 )

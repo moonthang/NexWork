@@ -65,7 +65,7 @@
     <string name="text_saved_list">Lista de guardados</string>
     <string name="text_provider_panel">Panel de proveedor</string>
     <string name="text_invite_friends">Invitar a amigos</string>
-    <string name="text_manage_users">Administrar usuarios</string>">
+    <string name="text_manage_users">Administrar usuarios</string>"
     <string name="text_manage_services">Administrar servicios</string>
     <string name="text_manage_categories">Administrar categorias</string>
     <string name="text_preferences">Preferencias</string>
@@ -179,5 +179,13 @@
     <string name="btn_price">Precio</string>
     <string name="btn_availability">Disponibilidad</string>"
     <string name="btn_location">Ubicación</string>
+    <string name="create_user_str">Crear usuario</string>
+
+    <!-- User Roles -->
+    <string-array name="user_roles">
+        <item>admin</item>
+        <item>client</item>
+        <item>provider</item>
+    </string-array>
 
 </resources>
