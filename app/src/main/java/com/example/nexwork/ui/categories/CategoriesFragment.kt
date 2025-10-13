@@ -22,7 +22,7 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
 
-    private val categoryViewModel: CategoryViewModel by viewModels()
+    private val categoryViewModel: CategoriesViewModel by viewModels()
     private lateinit var categoryAdapter: CategoryAdapter
     private var selectedCategory: Category? = null
 
@@ -38,6 +38,7 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
         super.onViewCreated(view, savedInstanceState)
 
         setupHeader()
+        setupSearchView()
         setupRecyclerView()
         observeViewModel()
 
@@ -48,7 +49,7 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
                 .commit()
         }
 
-        categoryViewModel.fetchCategories()
+        categoryViewModel.loadCategories()
     }
 
     private fun setupHeader() {
@@ -63,6 +64,7 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
     }
 
     private fun setupSearchView() {
+       // Review searchView
         val searchEditText = binding.searchLayout.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
         searchEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary))
         searchEditText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary))
@@ -89,7 +91,7 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
         val dialog = OptionsDialogFragment.newInstance(
             title = category.name,
             option1 = getString(R.string.edit_option),
-            option2 = getString(R.string.delete_option)
+            option3 = getString(R.string.delete_option)
         )
         dialog.setOptionsDialogListener(this)
         dialog.show(parentFragmentManager, "OptionsDialogFragment")
