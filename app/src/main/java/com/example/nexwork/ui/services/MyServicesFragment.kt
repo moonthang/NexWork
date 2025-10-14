@@ -57,7 +57,19 @@ class MyServicesFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.services_recycler_view)
         // Muestra la lista de servicios verticalmente
         recyclerView.layoutManager = LinearLayoutManager(context)
-        serviceAdapter = ServiceAdapter { service ->
+        serviceAdapter = ServiceAdapter(false) { service ->
+            val bundle = Bundle().apply {
+                putString("serviceId", service.serviceId)
+            }
+
+            val serviceDetailFragment = ServiceDetailFragment().apply {
+                arguments = bundle
+            }
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, serviceDetailFragment)
+                .addToBackStack(null)
+                .commit()
         }
         recyclerView.adapter = serviceAdapter
 

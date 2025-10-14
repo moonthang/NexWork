@@ -29,7 +29,7 @@
             android:clipToPadding="false"
             android:paddingTop="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_category" />
+            tools:listitem="@layout/item_category_list" />
 
     </LinearLayout>
 

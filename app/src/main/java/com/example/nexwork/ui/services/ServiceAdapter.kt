@@ -15,13 +15,12 @@ import com.example.nexwork.data.model.Service
 import java.text.NumberFormat
 import java.util.Locale
 
-class ServiceAdapter(private val onClick: (Service) -> Unit) :
+class ServiceAdapter(private val isClientView: Boolean, private val onClick: (Service) -> Unit) :
     ListAdapter<Service, ServiceAdapter.ServiceViewHolder>(ServiceDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServiceViewHolder {
-        // Infla el layout para crear la lista de servicios
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_service, parent, false)
-        return ServiceViewHolder(view, onClick)
+        return ServiceViewHolder(view, isClientView, onClick)
     }
 
     override fun onBindViewHolder(holder: ServiceViewHolder, position: Int) {
@@ -29,7 +28,7 @@ class ServiceAdapter(private val onClick: (Service) -> Unit) :
         holder.bind(getItem(position))
     }
 
-    class ServiceViewHolder(itemView: View, val onClick: (Service) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    class ServiceViewHolder(itemView: View, private val isClientView: Boolean, val onClick: (Service) -> Unit) : RecyclerView.ViewHolder(itemView) {
         private val favoriteLayout: LinearLayout = itemView.findViewById(R.id.favorite_layout)
         private val ratingLayout: LinearLayout = itemView.findViewById(R.id.rating_layout)
         private val nameTextView: TextView = itemView.findViewById(R.id.service_name)
@@ -51,8 +50,14 @@ class ServiceAdapter(private val onClick: (Service) -> Unit) :
         fun bind(service: Service) {
             currentService = service
             nameTextView.text = service.title
-            ratingLayout.visibility = View.GONE
-            favoriteLayout.visibility = View.GONE
+
+            if(isClientView) {
+                ratingLayout.visibility = View.VISIBLE
+                favoriteLayout.visibility = View.VISIBLE
+            } else {
+                ratingLayout.visibility = View.GONE
+                favoriteLayout.visibility = View.GONE
+            }
 
             // Obtener el primer plan de la lista 'Sencillo'
             val simplePlan = service.plans.getOrNull(0)
@@ -62,10 +67,6 @@ class ServiceAdapter(private val onClick: (Service) -> Unit) :
                 val format: NumberFormat = NumberFormat.getCurrencyInstance(Locale("es", "CO"))
                 format.maximumFractionDigits = 0
                 priceTextView.text = format.format(simplePlan.price)
-            } else {
-                // Si no hay plan 'Sencillo', mostrar la descripción principal
-                descriptionTextView.text = service.description
-                priceTextView.text = ""
             }
 
             // Cargar la imagen

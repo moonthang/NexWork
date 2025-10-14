@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.nexwork.R
+import com.example.nexwork.ui.services.ServiceSearchFragment
 
 
 class HomeCategoriesFragment : Fragment() {
@@ -28,13 +29,20 @@ class HomeCategoriesFragment : Fragment() {
         val btnBack = basic_header.findViewById<ImageView>(R.id.btnBack)
 
         btnNotification.visibility = View.GONE
-        btnSearch.visibility = View.GONE
+        btnSearch.visibility = View.VISIBLE
         btnFilter.visibility = View.GONE
         btnOptions.visibility = View.GONE
 
         txtTitle.setText(getString(R.string.categories_title))
         btnBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
+        btnSearch.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ServiceSearchFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return view

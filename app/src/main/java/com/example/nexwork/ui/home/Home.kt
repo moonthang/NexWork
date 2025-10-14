@@ -13,6 +13,7 @@ import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.data.model.User
 import com.example.nexwork.data.repository.AuthRepository
 import com.example.nexwork.ui.auth.Login
+import com.example.nexwork.ui.categories.HomeCategoriesFragment
 import com.example.nexwork.ui.profile.GuestProfileFragment
 import com.example.nexwork.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -93,15 +94,18 @@ class Home : AppCompatActivity() {
 
         menu.findItem(R.id.btn_home).isVisible = true
         menu.findItem(R.id.btn_profile).isVisible = true
-
+        menu.findItem(R.id.btn_category).isVisible = true
         menu.findItem(R.id.btn_messages).isVisible = false
-        menu.findItem(R.id.btn_category).isVisible = false
         menu.findItem(R.id.btn_notifications).isVisible = false
 
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.btn_home -> {
                     showHomeContent()
+                    true
+                }
+                R.id.btn_category -> {
+                    loadFragment(HomeCategoriesFragment())
                     true
                 }
                 R.id.btn_profile -> {
@@ -148,6 +152,10 @@ class Home : AppCompatActivity() {
                     } else {
                         showHomeContent()
                     }
+                    true
+                }
+                R.id.btn_category -> {
+                    loadFragment(HomeCategoriesFragment())
                     true
                 }
                 R.id.btn_profile -> {
