@@ -49,7 +49,7 @@ class MyServicesFragment : Fragment() {
         btnFilter.visibility = View.GONE
         btnOptions.visibility = View.GONE
 
-        txtTitle.setText(getString(R.string.account_title))
+        txtTitle.setText(getString(R.string.my_services_title))
         btnBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
