@@ -14,21 +14,20 @@ class AuthViewModel : ViewModel() {
     val registrationState: LiveData<RegistrationState> = _registrationState
 
     fun registerUser(
-        firstName: String, lastName: String, email: String, birthDate: String,
-        phone: String, password: String, userRole: String
+        user: User
     ) {
         _registrationState.value = RegistrationState.Loading
 
-        repository.registerUser(email, password) { authResult ->
+        repository.registerUser(user.email, user.password) { authResult ->
             authResult.onSuccess { firebaseUser ->
                 val newUser = User(
                     userId = firebaseUser.uid,
-                    firstName = firstName,
-                    lastName = lastName,
-                    email = email,
-                    birthDate = birthDate,
-                    phone = phone,
-                    role = userRole
+                    firstName = user.firstName,
+                    lastName = user.lastName,
+                    email = user.email,
+                    birthDate = user.birthDate,
+                    phone = user.phone,
+                    role = user.role
                 )
 
                 repository.saveUserData(newUser) { dbResult ->

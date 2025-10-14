@@ -52,7 +52,7 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
         android:text="@string/cancel_option" />
 
