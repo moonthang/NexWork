@@ -3,7 +3,6 @@ package com.example.nexwork.core
 import android.app.Dialog
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -15,7 +14,6 @@ class LoadingDialog(context: Context) {
         setCancelable(false)
 
         window?.apply {
-            setGravity(Gravity.CENTER)
             setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT

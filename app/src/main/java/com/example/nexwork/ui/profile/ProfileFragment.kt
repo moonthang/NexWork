@@ -18,6 +18,7 @@ import com.example.nexwork.data.repository.AuthRepository
 import com.google.firebase.storage.FirebaseStorage
 import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.ui.categories.CategoriesFragment
+import com.example.nexwork.ui.home.HomeProviderFragment
 import com.example.nexwork.ui.profile.account.AccountFragment
 import com.example.nexwork.ui.services.MyServicesFragment
 import com.example.nexwork.ui.users.UserListFragment
@@ -101,6 +102,15 @@ class ProfileFragment : Fragment() {
                 .commit()
         }
 
+        // redirije hacia el panel de proveedores
+        val sectionProviderPanel = view.findViewById<LinearLayout>(R.id.section_provider_panel)
+        sectionProviderPanel.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(fragment_container, HomeProviderFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         val basic_header = view.findViewById<View>(R.id.header)
         val btnNotification = basic_header.findViewById<ImageView>(R.id.btnNotification)
         val btnSearch = basic_header.findViewById<ImageView>(R.id.btnSearch)
@@ -156,7 +166,7 @@ class ProfileFragment : Fragment() {
             }
             "admin" -> {
                 sectionSavedList.visibility = View.GONE
-                sectionProviderPanel.visibility = View.GONE
+                sectionProviderPanel.visibility = View.VISIBLE
                 sectionInviteFriends.visibility = View.GONE
 
             }

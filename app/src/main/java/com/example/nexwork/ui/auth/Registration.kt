@@ -16,7 +16,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.nexwork.ui.home.Home
 import com.example.nexwork.R
 import com.example.nexwork.core.LoadingDialog
+import com.example.nexwork.data.model.User // Importar el modelo User
 import java.util.Calendar
+import java.util.UUID
 
 class Registration : AppCompatActivity() {
 
@@ -109,7 +111,17 @@ class Registration : AppCompatActivity() {
                     acceptTerms
                 )
             ) {
-                viewModel.registerUser(firstName, lastName, email, birthDate, phone, password, userRole)
+                // Creamos una instancia de User con los datos del formulario
+                val newUser = User(
+                    firstName = firstName,
+                    lastName = lastName,
+                    email = email,
+                    birthDate = birthDate,
+                    phone = phone,
+                    password = password,
+                    role = userRole,
+                )
+                viewModel.registerUser(newUser)
             }
         }
     }

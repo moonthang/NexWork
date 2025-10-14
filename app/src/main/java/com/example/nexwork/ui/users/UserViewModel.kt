@@ -24,6 +24,7 @@ class UserViewModel : ViewModel() {
             result.onSuccess { userList ->
                 _users.value = userList
             }
+
             // Opcional: Manejar el caso de fallo, por ejemplo, con otro LiveData
         }
     }
@@ -54,42 +55,3 @@ class UserViewModel : ViewModel() {
         }
     }
 }
-
-
-//birthDate
-//"18/9/2019"
-//(cadena)
-//
-//
-//email
-//"test2@mail.com"
-//(cadena)
-//
-//
-//firstName
-//"Alberto"
-//(cadena)
-//
-//
-//lastName
-//"usquen"
-//(cadena)
-//
-//
-//phone
-//"31222222"
-//(cadena)
-//
-//
-//profileImageUrl
-//""
-//(cadena)
-//
-//
-//role
-//"provider"
-//(cadena)
-//
-//
-//userId
-//"ZJKSkTXcUxMNUaXAv8wmvIB5oSq1"
