@@ -8,17 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.nexwork.R
 import com.example.nexwork.data.model.User
 import com.example.nexwork.databinding.FragmentCreateUserBinding
 import com.example.nexwork.ui.auth.AuthViewModel
+import com.example.nexwork.ui.auth.RegistrationState
 import com.example.nexwork.ui.home.Home
 import java.util.Calendar
-import java.util.UUID
 
 class CreateUserFragment : Fragment() {
 
@@ -54,9 +54,7 @@ class CreateUserFragment : Fragment() {
 
         binding.header.txtTitle.text = "Crear Usuario"
         binding.header.btnBack.setOnClickListener {
-            val intent = Intent(requireActivity(), Home::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
 
         }
     }
@@ -70,27 +68,24 @@ class CreateUserFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerRole.adapter = adapter
         }
-
-//        binding.spinnerRole.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-//                userRole = parent.getItemAtPosition(position).toString()
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>) {
-//                // No hacer nada
-//            }
-//        }
     }
 
     private fun observeViewModel() {
-//        userViewModel.operationStatus.observe(viewLifecycleOwner, Observer {
-//            it.onSuccess {
-//                Toast.makeText(requireContext(), "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show()
-//                requireActivity().onBackPressedDispatcher.onBackPressed()
-//            }.onFailure {
-//                Toast.makeText(requireContext(), "Error al registrar usuario: ${it.message}", Toast.LENGTH_LONG).show()
-//            }
-//        })
+        userViewModel.registrationState.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is RegistrationState.Loading -> {
+                    // Puedes mostrar un ProgressBar o un diálogo de carga aquí
+                    Toast.makeText(requireContext(), "Registrando usuario...", Toast.LENGTH_SHORT).show()
+                }
+                is RegistrationState.Success -> {
+                    Toast.makeText(requireContext(), "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show()
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+                is RegistrationState.Error -> {
+                    Toast.makeText(requireContext(), "Error al registrar usuario: ${it.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
     private fun showDatePickerDialog() {
