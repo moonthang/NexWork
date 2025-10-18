@@ -11,6 +11,7 @@ class AuthRepository {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val usersCollection = db.collection("users")
 
+    // Registro de usuario en Auth
     fun registerUser(
         email: String,
         password: String,
@@ -47,6 +48,7 @@ class AuthRepository {
             .addOnFailureListener { e -> onComplete(Result.failure(e)) }
     }
 
+    // Obtener todos los usuarios
     fun getAllUsers(onComplete: (Result<List<User>>) -> Unit) {
         usersCollection.get()
             .addOnSuccessListener { querySnapshot ->
@@ -70,7 +72,8 @@ class AuthRepository {
             .addOnFailureListener { e -> onComplete(Result.failure(e)) }
     }
 
-    // Refactor de la función original para usar el modelo User
+
+    // Registro de usuario en Firestore
     fun saveUserData(
         user: User,
         onComplete: (Result<Unit>) -> Unit
@@ -96,6 +99,7 @@ class AuthRepository {
             }
     }
 
+    // Obtener el ID del usuario logeado
     fun getCurrentUserId(): String? {
         return auth.currentUser?.uid
     }

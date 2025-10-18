@@ -41,6 +41,16 @@ class ServiceRepository {
             .addOnFailureListener { e -> onComplete(Result.failure(e)) }
     }
 
+    // Obtener servicios por ID de categoría
+    fun getServicesByCategoryId(categoryId: String, onComplete: (Result<List<Service>>) -> Unit) {
+        servicesCollection.whereEqualTo("categoryId", categoryId).get()
+            .addOnSuccessListener { querySnapshot ->
+                val services = querySnapshot.toObjects(Service::class.java)
+                onComplete(Result.success(services))
+            }
+            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
+
     // Actualizar un servicio
     fun updateService(service: Service, onComplete: (Result<Unit>) -> Unit) {
         servicesCollection.document(service.serviceId).set(service)

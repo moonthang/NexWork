@@ -52,11 +52,16 @@ class CreateUserFragment : Fragment() {
 
     private fun setupHeader() {
 
-        binding.header.txtTitle.text = "Crear Usuario"
+        binding.header.txtTitle.text = getString(R.string.create_user_str)
         binding.header.btnBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
 
         }
+
+        binding.header.btnNotification.visibility = View.GONE
+        binding.header.btnSearch.visibility = View.GONE
+        binding.header.btnFilter.visibility = View.GONE
+        binding.header.btnOptions.visibility = View.GONE
     }
 
     private fun setupSpinner() {

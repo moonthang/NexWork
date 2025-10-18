@@ -21,10 +21,11 @@ class CategoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_category, parent, false)
+            .inflate(R.layout.item_category_list, parent, false)
         return CategoryViewHolder(view)
     }
 
+    // Reemplazar el ViewHolder con los datos correspondientes
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categories[position]
         holder.bind(category)
@@ -33,24 +34,28 @@ class CategoryAdapter(
         }
     }
 
+    // Devuelve el número de datos en la lista
     override fun getItemCount(): Int = categories.size
 
     fun updateCategories(newCategories: List<Category>) {
         categories = newCategories
-        notifyDataSetChanged() // Para una lista simple esto está bien.
+        notifyDataSetChanged()
     }
 
+    // Gestiona los elementos de la lista
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.tv_category_name)
         private val idTextView: TextView = itemView.findViewById(R.id.tv_category_id)
         private val imageView: ImageView = itemView.findViewById(R.id.iv_category_image)
 
+        // Vincula los datos de la categoría con la vista
         fun bind(category: Category) {
             nameTextView.text = category.name
             idTextView.text = itemView.context.getString(R.string.category_id_format, category.categoryId)
+
             Glide.with(itemView.context)
                 .load(category.imageUrl)
-                .placeholder(R.drawable.ic_launcher_background) // Imagen de placeholder
+                .placeholder(R.drawable.ic_launcher_background)
                 .into(imageView)
         }
     }

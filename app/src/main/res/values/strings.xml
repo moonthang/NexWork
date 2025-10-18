@@ -188,4 +188,11 @@
         <item>provider</item>
     </string-array>
 
+    <!-- service detail page -->
+    <string name="service_detail_title">Detalles del Servicio"</string>
+    <string name="section_faq_service">Preguntas frecuentes</string>
+    <string name="section_similar_service">Servicios Similares</string>
+    <string name="btn_send_message_provider">Enviar Mensaje al Proveedor</string>
+    <string name="btn_continue_service">Continuar</string>
+
 </resources>

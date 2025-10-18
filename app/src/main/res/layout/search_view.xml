@@ -7,7 +7,9 @@
     android:layout_margin="8dp"
     android:background="@drawable/edittext_background"
     android:iconifiedByDefault="false"
-    android:padding="8dp"
     android:queryHint="@string/hint_search"
+    android:textColor="@color/text_primary"
     android:textColorHint="@color/text_secondary"
-    app:queryBackground="@android:color/transparent" />
+    app:queryBackground="@android:color/transparent"
+    app:closeIcon="@null"
+    />

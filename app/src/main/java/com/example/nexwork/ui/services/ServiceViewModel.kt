@@ -16,9 +16,11 @@ class ServiceViewModel : ViewModel() {
 
     private val serviceRepository = ServiceRepository()
     private val categoriesRepository = CategoriesRepository()
-    private val usersRepository = AuthRepository()
+    private val authRepository = AuthRepository()
     private val _service = MutableLiveData<Service?>()
     val service: LiveData<Service?> get() = _service
+    private val _provider = MutableLiveData<User?>()
+    val provider: LiveData<User?> get() = _provider
     private val _services = MutableLiveData<List<Service>>()
     val services: LiveData<List<Service>> get() = _services
     private val _categories = MutableLiveData<List<Pair<String, String>>>()
@@ -46,12 +48,33 @@ class ServiceViewModel : ViewModel() {
     }
 
     // Obtener servicio por id
-    fun getServiceById(id: String) {
+    fun loadServiceById(serviceId: String) {
         _loading.value = true
-        serviceRepository.getServiceById(id) { result ->
+        serviceRepository.getServiceById(serviceId) { result ->
             _loading.value = false
-            result.onSuccess { _service.value = it }
-            result.onFailure { _error.value = it.message }
+            result.onSuccess { loadedService ->
+                _service.value = loadedService
+                loadedService?.let {
+                    loadProvider(it.providerId)
+                }
+            }
+            result.onFailure { e ->
+                _error.value = "Error al cargar el servicio: ${e.message}"
+                _service.value = null
+            }
+        }
+    }
+
+    // Obtener proveedor por id
+    fun loadProvider(providerId: String) {
+        authRepository.getUserById(providerId) { result ->
+            result.onSuccess { user ->
+                _provider.value = user
+            }
+            result.onFailure {
+                _error.value = "Error al cargar el proveedor: ${it.message}"
+                _provider.value = null
+            }
         }
     }
 
@@ -118,7 +141,7 @@ class ServiceViewModel : ViewModel() {
     // Obtener todas las categorías (id + nombre)
     fun getUsers() {
         _loading.value = true
-        usersRepository.getUsersIdsAndNames { result ->
+        authRepository.getUsersIdsAndNames { result ->
             _loading.value = false
             result.onSuccess { usersList ->
                 val formattedUsers: List<String> = usersList.map { pair ->
