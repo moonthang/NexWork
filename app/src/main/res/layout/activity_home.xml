@@ -6,21 +6,26 @@
     android:layout_height="match_parent"
     android:background="@color/background_primary"
     android:fillViewport="true"
-    tools:context=".Home">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.home.Home">
 
     <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@color/background_secondary"
         android:padding="5dp"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/logotipo"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
-            android:src="@drawable/logotipo_nexwork" />
+            android:layout_weight="1"
+            android:src="@drawable/logotipo_nexwork"
+            android:scaleType="centerInside" />
 
         <ImageView
             android:id="@+id/btnNotification"
@@ -30,17 +35,26 @@
             android:padding="5dp"
             android:clickable="true"
             android:focusable="true"
-            app:tint="@color/text_primary"
-            app:itemIconSize="30dp"/>
+            app:tint="@color/text_primary" />
 
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:layout_above="@id/bottom_navigation"
+        android:visibility="gone" />
 
     <ScrollView
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation"
-        android:fillViewport="true">
+        android:layout_below="@id/header"
+        android:layout_above="@id/bottom_navigation"
+        android:fillViewport="true"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,11 +63,6 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
-            <Button
-                android:id="@+id/btn_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cerrar Sesión" />
 
         </LinearLayout>
 

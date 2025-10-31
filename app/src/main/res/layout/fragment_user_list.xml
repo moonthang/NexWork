@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_primary">
+    android:background="@color/background_primary"
+    tools:context=".ui.users.UserListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/users_recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingVertical="8dp"/>
-</FrameLayout>
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/basic_header" />
+
+        <include
+            android:id="@+id/search_layout"
+            layout="@layout/search_view" />
+
+        <!-- Lista de usuarios -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUsers"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            tools:listitem="@layout/item_user"/>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/add_user_str"
+        android:src="@drawable/ic_circle_button_add"
+        app:backgroundTint="@color/accent"
+        app:tint="@color/text_primary"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/rvUsers" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

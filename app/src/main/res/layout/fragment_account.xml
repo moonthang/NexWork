@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    android:id="@+id/AccountFragment"
+    tools:context=".ui.profile.account.AccountFragment">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/basic_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/section_title_personal_information"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/section_title_personal_information"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_background"
+                    android:clipToOutline="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_profile" />
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_change_photo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btn_change_photo"
+                        android:textColor="@color/background_primary"
+                        app:backgroundTint="@color/text_primary" />
+
+                    <Button
+                        android:id="@+id/btn_delete_photo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btn_delete_photo"
+                        android:textColor="@color/error"
+                        app:backgroundTint="@color/background_primary"
+                        app:strokeColor="@color/error"
+                        app:strokeWidth="2dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/hint_first_name"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:background="@drawable/edittext_background"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_first_name"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/hint_last_name"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edittext_background"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_last_name"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/hint_email"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edittext_background"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_email"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/hint_birth_date"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edittext_background"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_birth_date"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/hint_phone"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edittext_background"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:hint="@string/hint_phone"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="25dp">
+
+                    <Button
+                        android:id="@+id/btn_edit"
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/btn_edit"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                        app:backgroundTint="@color/button_primary_background" />
+
+                    <Button
+                        android:id="@+id/btn_cancel"
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/btn_cancel"
+                        android:textColor="@color/error"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:backgroundTint="@color/background_primary"
+                        app:strokeColor="@color/error"
+                        app:strokeWidth="2dp"/>
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/btn_save"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:backgroundTint="@color/button_primary_background" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="25dp">
+
+                    <Button
+                        android:id="@+id/btn_change_role"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:gravity="center"
+                        android:text="@string/btn_change_provider"
+                        android:textColor="@color/background_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/text_primary" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title_app"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/section_title_account_management"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/stroke_primary" />
+
+                <LinearLayout
+                    android:id="@+id/section_bank_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_secondary"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/text_bank_account"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/text_bank_account"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_arrow_forward"
+                            app:tint="@color/text_secondary" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/stroke_primary" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/section_change_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_secondary"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/text_change_password"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/text_change_password"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_arrow_forward"
+                            app:tint="@color/text_secondary" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/stroke_primary" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/section_delete_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_secondary"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/text_delete_account"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/text_delete_account"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_arrow_forward"
+                            app:tint="@color/text_secondary" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/stroke_primary" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_secondary"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/text_privacy_policy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/text_privacy_policy"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_arrow_forward"
+                            app:tint="@color/text_secondary" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/stroke_primary" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/section_close_session"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_secondary"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/text_close_session"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/text_close_session"
+                            android:textColor="@color/error"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_arrow_forward"
+                            app:tint="@color/error" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/stroke_primary" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

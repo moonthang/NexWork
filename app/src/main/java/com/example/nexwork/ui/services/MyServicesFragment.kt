@@ -4,67 +4,96 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nexwork.R
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.example.nexwork.core.LoadingDialog
 
 class MyServicesFragment : Fragment() {
 
     private val viewModel: ServiceViewModel by viewModels()
     private lateinit var serviceAdapter: ServiceAdapter
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_services, container, false)
+        val view = inflater.inflate(R.layout.fragment_my_services, container, false)
+
+        val contentLayout = view.findViewById<View>(R.id.MyServicesFragment)
+        contentLayout?.visibility = View.GONE
+
+        loadingDialog = LoadingDialog(requireContext())
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Configurar Header
-        val headerView = view.findViewById<View>(R.id.header)
-        val titleTextView = headerView.findViewById<TextView>(R.id.txtTitle)
-        titleTextView.text = getString(R.string.my_services_title)
+        loadingDialog.show()
+        val basic_header = view.findViewById<View>(R.id.header)
+        val btnNotification = basic_header.findViewById<ImageView>(R.id.btnNotification)
+        val btnSearch = basic_header.findViewById<ImageView>(R.id.btnSearch)
+        val btnFilter = basic_header.findViewById<ImageView>(R.id.btnFilter)
+        val btnOptions = basic_header.findViewById<ImageView>(R.id.btnOptions)
+        val txtTitle = basic_header.findViewById<TextView>(R.id.txtTitle)
+        val btnBack = basic_header.findViewById<ImageView>(R.id.btnBack)
 
-        // Configurar RecyclerView
+        btnNotification.visibility = View.GONE
+        btnSearch.visibility = View.GONE
+        btnFilter.visibility = View.GONE
+        btnOptions.visibility = View.GONE
+
+        txtTitle.setText(getString(R.string.my_services_title))
+        btnBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.services_recycler_view)
+        // Muestra la lista de servicios verticalmente
         recyclerView.layoutManager = LinearLayoutManager(context)
-        serviceAdapter = ServiceAdapter { service ->
-            // TODO: Navegar a la pantalla de detalle del servicio
-            Toast.makeText(context, "Clicked on ${service.name}", Toast.LENGTH_SHORT).show()
+        serviceAdapter = ServiceAdapter(false) { service ->
+            val bundle = Bundle().apply {
+                putString("serviceId", service.serviceId)
+            }
+
+            val serviceDetailFragment = ServiceDetailFragment().apply {
+                arguments = bundle
+            }
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, serviceDetailFragment)
+                .addToBackStack(null)
+                .commit()
         }
         recyclerView.adapter = serviceAdapter
 
 
-        val fab = view.findViewById<ExtendedFloatingActionButton>(R.id.add_service_fab)
+        val fab = view.findViewById<Button>(R.id.add_service_fab)
         fab.setOnClickListener {
-            // TODO: Navegar a la pantalla de creación de un nuevo servicio
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, CreateServiceFragment())
+                .addToBackStack(null)
+                .commit()
         }
-        
+
         observeViewModel()
-        viewModel.fetchServices()
+        viewModel.getAllServices()
     }
 
+    // Observa los cambios en la lista de servicios
     private fun observeViewModel() {
         viewModel.services.observe(viewLifecycleOwner) { services ->
-            // Implementar logica cuando esto este ready para el party
-            if (services.isNullOrEmpty()) {
-                val dummyServices = listOf(
-                    com.example.nexwork.data.model.Service("1", "Limpieza de GYM", "Descripción de prueba...", 120000.0, 4.8f, ""),
-                    com.example.nexwork.data.model.Service("2", "Limpieza de HOGAR", "Descripción de prueba...", 150000.0, 4.9f, ""),
-                    com.example.nexwork.data.model.Service("3", "Limpieza de OFICINA", "Descripción de prueba...", 200000.0, 4.7f, "")
-                )
-                serviceAdapter.submitList(dummyServices)
-            } else {
-                serviceAdapter.submitList(services)
-            }
+            loadingDialog.dismiss()
+            view?.findViewById<View>(R.id.MyServicesFragment)?.visibility = View.VISIBLE
+
+            // Actualiza la lista de servicios en el adaptador
+            serviceAdapter.submitList(services)
         }
     }
 }

@@ -13,14 +13,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.nexwork.Home
+import com.example.nexwork.ui.home.Home
 import com.example.nexwork.R
 import com.example.nexwork.core.LoadingDialog
+import com.example.nexwork.data.model.User // Importar el modelo User
 import java.util.Calendar
+import java.util.UUID
 
 class Registration : AppCompatActivity() {
 
-    private var userRole: String = "user"
+    private var userRole: String = "client"
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var birthDateEditText: EditText
 
@@ -37,7 +39,14 @@ class Registration : AppCompatActivity() {
         }
 
         loadingDialog = LoadingDialog(this)
-        userRole = intent.getStringExtra("userRole") ?: "user"
+        userRole = intent.getStringExtra("userRole") ?: "client"
+        if (intent.getStringExtra("userRole") == null) {
+            Toast.makeText(
+                this,
+                "Se te asignó automáticamente el rol de CLIENTE.\nSi quieres cambiarlo, dirígete a Perfil → Cuenta.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
         birthDateEditText = findViewById(R.id.hint_birth_date)
 
         setupOnClickListener()
@@ -53,7 +62,9 @@ class Registration : AppCompatActivity() {
                 is RegistrationState.Success -> {
                     loadingDialog.dismiss()
                     Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, Home::class.java)
+                    val intent = Intent(this, Home::class.java).apply {
+                        putExtra(Login.EXTRA_USER_ROLE, userRole)
+                    }
                     startActivity(intent)
                     finish()
                 }
@@ -100,7 +111,17 @@ class Registration : AppCompatActivity() {
                     acceptTerms
                 )
             ) {
-                viewModel.registerUser(firstName, lastName, email, birthDate, phone, password, userRole)
+                // Creamos una instancia de User con los datos del formulario
+                val newUser = User(
+                    firstName = firstName,
+                    lastName = lastName,
+                    email = email,
+                    birthDate = birthDate,
+                    phone = phone,
+                    password = password,
+                    role = userRole,
+                )
+                viewModel.registerUser(newUser)
             }
         }
     }

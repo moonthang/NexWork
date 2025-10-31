@@ -1,11 +1,14 @@
 package com.example.nexwork.data.model
 
 data class User(
-    val userId: String = "",
+    var userId: String = "",
     val firstName: String = "",
     val lastName: String = "",
     val email: String = "",
     val birthDate: String = "",
     val phone: String = "",
-    val role: String = "user"
+    val password: String = "",
+    val profession: String = "",
+    val role: String = "client",
+    val profileImageUrl: String = ""
 )

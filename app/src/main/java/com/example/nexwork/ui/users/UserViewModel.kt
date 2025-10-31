@@ -24,6 +24,7 @@ class UserViewModel : ViewModel() {
             result.onSuccess { userList ->
                 _users.value = userList
             }
+
             // Opcional: Manejar el caso de fallo, por ejemplo, con otro LiveData
         }
     }
