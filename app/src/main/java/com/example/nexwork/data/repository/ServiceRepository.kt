@@ -2,13 +2,11 @@ package com.example.nexwork.data.repository
 
 import com.example.nexwork.data.model.Service
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 
 class ServiceRepository {
 
     private val db = FirebaseFirestore.getInstance()
     private val servicesCollection = db.collection("services")
-    private val storage = FirebaseStorage.getInstance().reference
 
     // Crear un servicio en Firestore
     fun createService(service: Service, onComplete: (Result<Unit>) -> Unit) {
