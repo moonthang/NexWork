@@ -39,6 +39,7 @@
     <string name="hint_last_name">Apellido</string>
     <string name="hint_birth_date">Fecha de nacimiento</string>
     <string name="hint_phone">Teléfono</string>
+    <string name="hint_profession">Profesión</string>
     <string name="hint_confirm_password">Confirmar contraseña</string>
     <string name="checkbox_accept_terms">Acepto términos y condiciones.</string>
     <string name="register_button">Registrarse</string>

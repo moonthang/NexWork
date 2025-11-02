@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.example.nexwork.R
 import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.ui.auth.Login
-import com.example.nexwork.ui.profile.ProfileFragment
 import com.google.firebase.storage.FirebaseStorage
 import java.util.Calendar
 
@@ -132,7 +131,8 @@ class AccountFragment : Fragment() {
             view.findViewById(R.id.hint_last_name),
             view.findViewById(R.id.hint_email),
             view.findViewById(R.id.hint_birth_date),
-            view.findViewById(R.id.hint_phone)
+            view.findViewById(R.id.hint_phone),
+            view.findViewById(R.id.hint_profession)
         )
         birthDateEditText = view.findViewById(R.id.hint_birth_date)
 
@@ -161,6 +161,7 @@ class AccountFragment : Fragment() {
                 email = profileFields[2].text.toString(),
                 birthDate = profileFields[3].text.toString(),
                 phone = profileFields[4].text.toString(),
+                profession = profileFields[5].text.toString(),
                 role = current.role,
                 profileImageUrl = current.profileImageUrl
             )
@@ -263,6 +264,7 @@ class AccountFragment : Fragment() {
             profileFields[2].setText(user.email)
             profileFields[3].setText(user.birthDate)
             profileFields[4].setText(user.phone)
+            profileFields[5].setText(user.profession)
 
             loadProfileImage(user.profileImageUrl)
 
