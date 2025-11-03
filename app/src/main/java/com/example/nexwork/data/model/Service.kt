@@ -12,18 +12,19 @@ data class Service(
     val createdAt: Long = System.currentTimeMillis(),
     val ubication: Map<String, Double> = emptyMap(),
     val plans: List<ServicePlan> = emptyList(),
-    val addons: List<ServiceAddon> = emptyList()
+    val addons: List<ServiceAddon> = emptyList(),
+    val requiresVisit: Boolean = false
 )
 
 data class ServicePlan(
     val planName: String = "",
     val planDescription: String = "",
     val price: Double = 0.0,
-    val priceUnit: String = "",
     val features: List<String> = emptyList()
 )
 
 data class ServiceAddon(
     val addonTitle: String = "",
-    val addonDescription: String = ""
+    val addonDescription: String = "",
+    val planIndex: Int = 0
 )

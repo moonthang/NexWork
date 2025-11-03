@@ -71,4 +71,5 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.glide)
     ksp(libs.androidx.room.compiler)
+    implementation("com.google.android.gms:play-services-location:21.2.0")
 }

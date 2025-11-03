@@ -57,7 +57,7 @@ class ServiceDetailFragment : Fragment() {
 
         providerName = view.findViewById(R.id.name_provider)
         serviceDescription = view.findViewById(R.id.service_description)
-        //providerProfession = view.findViewById(R.id.profession_provider)
+        providerProfession = view.findViewById(R.id.profession_provider)
         //providerUbication = view.findViewById(R.id.ubication_provider)
         providerProfileImage = view.findViewById(R.id.profileImage)
         tabIndicator = view.findViewById(R.id.tab_indicator)
@@ -91,6 +91,9 @@ class ServiceDetailFragment : Fragment() {
         btnSearch.visibility = View.GONE
         btnFilter.visibility = View.GONE
         btnOptions.visibility = View.VISIBLE
+
+        btnOptions.setOnClickListener {
+        }
 
         btnBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
@@ -150,7 +153,7 @@ class ServiceDetailFragment : Fragment() {
                 setupPlanSelection(service.plans)
                 view?.findViewById<View>(R.id.ServiceDetailFragment)?.visibility = View.VISIBLE
                 loadingDialog.dismiss()
-            } else if (serviceViewModel.error.value != null) {
+            } else if (serviceViewModel.error.value != null && serviceViewModel.serviceDeleted.value == false) {
                 Toast.makeText(context, serviceViewModel.error.value, Toast.LENGTH_LONG).show()
                 loadingDialog.dismiss()
             }
@@ -162,6 +165,7 @@ class ServiceDetailFragment : Fragment() {
         serviceViewModel.provider.observe(viewLifecycleOwner) { provider ->
             if (provider != null) {
                 providerName.text = "${provider.firstName} ${provider.lastName}"
+                providerProfession.text = provider.profession
                 Glide.with(this).load(provider.profileImageUrl).into(providerProfileImage)
             }
         }
@@ -203,7 +207,6 @@ class ServiceDetailFragment : Fragment() {
             R.id.offer_tab_premium to "premium"
         )
 
-        // Mostrar los botones correspondientes
         buttonPlanMap.forEach { (buttonId, planNameKey) ->
             val button = view?.findViewById<MaterialButton>(buttonId)
             val plan = planMap[planNameKey]
@@ -261,12 +264,7 @@ class ServiceDetailFragment : Fragment() {
             else -> -1
         }
 
-        val selectedAddons = if (addonIndex != -1 && currentService?.addons?.size ?: 0 > addonIndex) {
-            listOf(currentService!!.addons[addonIndex])
-        } else {
-            emptyList()
-        }
-
+        val selectedAddons = currentService?.addons?.filter { it.planIndex == addonIndex } ?: emptyList()
         displayAddons(selectedAddons)
     }
 
