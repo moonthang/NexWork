@@ -408,7 +408,7 @@ class ServiceViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    // Obtener todas las categorías (id + nombre)
+    // Obtener todas las usuarios (id + nombre)
     fun getUsers() {
         _loading.value = true
         authRepository.getUsersIdsAndNames { result ->
