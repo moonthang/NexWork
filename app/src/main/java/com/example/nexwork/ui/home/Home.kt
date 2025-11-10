@@ -18,6 +18,7 @@ import com.example.nexwork.data.repository.AuthRepository
 import com.example.nexwork.ui.auth.Login
 import com.example.nexwork.ui.categories.CategoriesDetailFragment
 import com.example.nexwork.ui.categories.HomeCategoriesFragment
+import com.example.nexwork.ui.chat.UserSearchFragment
 import com.example.nexwork.ui.profile.GuestProfileFragment
 import com.example.nexwork.ui.profile.ProfileFragment
 import com.example.nexwork.ui.services.ImageCarouselAdapter
@@ -190,6 +191,10 @@ class Home : AppCompatActivity(), CategoryAdapter.OnItemClickListener {
                 }
                 R.id.btn_profile -> {
                     loadFragment(ProfileFragment())
+                    true
+                }
+                R.id.btn_messages -> {
+                    loadFragment(UserSearchFragment())
                     true
                 }
                 else -> false

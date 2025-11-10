@@ -23,6 +23,7 @@
     <string name="action_client">Encuentra un servicio</string>
     <string name="action_provider">Venta de servicios</string>
     <string name="action_login">Iniciar Sesión</string>
+    <string name="action_login_google">Continuar con Google</string>
 
     <!-- login page -->
     <string name="hint_email">Correo electrónico</string>
@@ -53,6 +54,9 @@
     <!-- My Services -->
     <string name="my_services_title">Mis Servicios</string>
     <string name="add_new_service_button">Agregar Nuevo Servicio</string>
+
+    <!-- My Favorites -->
+    <string name="my_favorites_title">Mis Favoritos</string>
 
     <!-- Home's page -->
     <string name="home_provider_title">Panel de Proveedor</string>
@@ -201,6 +205,23 @@
         <item>client</item>
         <item>provider</item>
     </string-array>
+
+    <!-- Confirm Order page -->
+    <string name="confirm_order_title">Confirmar Servicio</string>
+    <string name="txt_order_details">Detalles del Servicio</string>
+    <string name="service_format">Servicio: %s</string>
+    <string name="plan_format">Plan %s</string>
+    <string name="txt_date">Fecha</string>
+    <string name="txt_hour">Hora</string>
+    <string name="txt_addons">Complementos</string>
+    <string name="txt_payment">Método de pago</string>
+    <string name="txt_credit_card">Tarjeta de crédito</string>
+    <string name="txt_other">Otro</string>
+
+    <!-- Chats pages -->
+    <string name="inbox_title">Bandeja de entrada</string>
+    <string name="txt_send_message">Escribe un mensaje</string>
+    <string name="txt_recents_chats">Recientes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

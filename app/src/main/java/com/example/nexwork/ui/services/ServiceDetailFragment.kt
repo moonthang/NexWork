@@ -19,6 +19,7 @@ import java.util.Locale
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.nexwork.core.LoadingDialog
+import com.example.nexwork.ui.orders.ConfirmOrderFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.tabs.TabLayout
@@ -42,6 +43,7 @@ class ServiceDetailFragment : Fragment() {
     private lateinit var btnPremium: MaterialButton
     private lateinit var loadingDialog: LoadingDialog
     private var currentService: Service? = null
+    private var selectedPlanIndex: Int = 0
     private lateinit var similarServicesRecyclerView: RecyclerView
     private lateinit var similarServicesAdapter: ServiceAdapter
 
@@ -68,6 +70,8 @@ class ServiceDetailFragment : Fragment() {
         btnPremium = view.findViewById(R.id.offer_tab_premium)
         btnContinueService = view.findViewById(R.id.btn_continue_service)
         similarServicesRecyclerView = view.findViewById(R.id.services_recycler_view)
+
+        btnContinueService.setOnClickListener { navigateToConfirmOrder() }
 
         return view
     }
@@ -114,20 +118,26 @@ class ServiceDetailFragment : Fragment() {
     }
 
     private fun setupSimilarServicesRecyclerView() {
-        similarServicesAdapter = ServiceAdapter(true) { service ->
-            val bundle = Bundle().apply {
-                putString("serviceId", service.serviceId)
-            }
+        similarServicesAdapter = ServiceAdapter(
+            isClientView = true,
+            onClick = { service ->
+                val bundle = Bundle().apply {
+                    putString("serviceId", service.serviceId)
+                }
 
-            val serviceDetailFragment = ServiceDetailFragment().apply {
-                arguments = bundle
-            }
+                val serviceDetailFragment = ServiceDetailFragment().apply {
+                    arguments = bundle
+                }
 
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, serviceDetailFragment)
-                .addToBackStack(null)
-                .commit()
-        }
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, serviceDetailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            },
+            onFavoriteClick = { service ->
+                categoryViewModel.toggleFavorite(service)
+            }
+        )
         similarServicesRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = similarServicesAdapter
@@ -229,6 +239,7 @@ class ServiceDetailFragment : Fragment() {
                 }
 
                 val selectedPlan = selectedPlanNameKey?.let { planMap[it] }
+                selectedPlanIndex = plans.indexOf(selectedPlan)
 
                 selectedPlan?.let { showPlanDetails(it) }
             }
@@ -286,5 +297,19 @@ class ServiceDetailFragment : Fragment() {
 
             addonsContainer.addView(addonView)
         }
+    }
+
+    private fun navigateToConfirmOrder() {
+        val bundle = Bundle().apply {
+            putString("serviceId", currentService?.serviceId)
+            putInt("planIndex", selectedPlanIndex)
+        }
+        val confirmOrderFragment = ConfirmOrderFragment().apply {
+            arguments = bundle
+        }
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, confirmOrderFragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

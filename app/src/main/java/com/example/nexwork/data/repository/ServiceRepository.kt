@@ -3,7 +3,9 @@ package com.example.nexwork.data.repository
 import com.example.nexwork.data.model.Service
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.tasks.await
 
 class ServiceRepository {
 
@@ -35,6 +37,20 @@ class ServiceRepository {
     // Obtener todos los servicios
     fun getAllServices(onComplete: (Result<List<Service>>) -> Unit) {
         servicesCollection.get()
+            .addOnSuccessListener { querySnapshot ->
+                val services = querySnapshot.toObjects(Service::class.java)
+                onComplete(Result.success(services))
+            }
+            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
+
+    fun getServicesByIds(serviceIds: List<String>, onComplete: (Result<List<Service>>) -> Unit) {
+        if (serviceIds.isEmpty()) {
+            onComplete(Result.success(emptyList()))
+            return
+        }
+
+        servicesCollection.whereIn("serviceId", serviceIds).get()
             .addOnSuccessListener { querySnapshot ->
                 val services = querySnapshot.toObjects(Service::class.java)
                 onComplete(Result.success(services))
@@ -127,5 +143,13 @@ class ServiceRepository {
         Tasks.whenAll(deleteTasks)
             .addOnSuccessListener { onComplete(Result.success(Unit)) }
             .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
+    
+    suspend fun getServicesForProvider(providerId: String, limit: Long? = null): List<Service> {
+        var query: Query = servicesCollection.whereEqualTo("providerId", providerId)
+        if (limit != null) {
+            query = query.orderBy("createdAt", Query.Direction.DESCENDING).limit(limit)
+        }
+        return query.get().await().toObjects(Service::class.java)
     }
 }

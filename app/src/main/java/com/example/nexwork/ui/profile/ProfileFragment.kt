@@ -20,6 +20,7 @@ import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.ui.categories.CategoriesFragment
 import com.example.nexwork.ui.home.HomeProviderFragment
 import com.example.nexwork.ui.profile.account.AccountFragment
+import com.example.nexwork.ui.profile.favorites.FavoritesListFragment
 import com.example.nexwork.ui.services.MyServicesFragment
 import com.example.nexwork.ui.users.UserListFragment
 
@@ -98,6 +99,15 @@ class ProfileFragment : Fragment() {
         sectionCategories.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(fragment_container, CategoriesFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        // redirije hacia favoritos
+        val sectionSavedList = view.findViewById<LinearLayout>(R.id.section_saved_list)
+        sectionSavedList.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(fragment_container, FavoritesListFragment())
                 .addToBackStack(null)
                 .commit()
         }

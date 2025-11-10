@@ -25,12 +25,47 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Pedidos pendientes, ingresos, mensajes nuevos -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
+
+                <androidx.gridlayout.widget.GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    app:columnCount="2"
+                    app:orientation="horizontal">
+
+                    <include
+                        android:id="@+id/card_pedidos_pendientes"
+                        layout="@layout/card_dashboard_item"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        app:layout_columnWeight="1" />
+
+                    <include
+                        android:id="@+id/card_ingresos_generados"
+                        layout="@layout/card_dashboard_item"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        app:layout_columnWeight="1" />
+
+                    <include
+                        android:id="@+id/card_mensajes_nuevos"
+                        layout="@layout/card_dashboard_item"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        app:layout_columnSpan="2"
+                        app:layout_columnWeight="1" />
+
+                </androidx.gridlayout.widget.GridLayout>
 
             </LinearLayout>
 
@@ -59,10 +94,17 @@
                     android:background="@color/stroke_primary" />
 
                 <RelativeLayout
+                    android:id="@+id/services_provider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp">
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_my_services"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_service" />
 
                 </RelativeLayout>
 
@@ -165,7 +207,7 @@
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
-                        android:src="@drawable/ic_manage_orders"
+                        android:src="@drawable/ic_star"
                         app:tint="@color/accent" />
 
                     <TextView

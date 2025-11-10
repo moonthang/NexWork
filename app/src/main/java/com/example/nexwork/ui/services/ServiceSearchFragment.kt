@@ -39,7 +39,7 @@ class ServiceSearchFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        serviceAdapter = ServiceAdapter(true) { service ->
+        serviceAdapter = ServiceAdapter(true, { service ->
             val bundle = Bundle().apply {
                 putString("serviceId", service.serviceId)
             }
@@ -53,7 +53,9 @@ class ServiceSearchFragment : Fragment() {
                 .replace(R.id.fragment_container, serviceDetailFragment)
                 .addToBackStack(null)
                 .commit()
-        }
+        }, {
+            viewModel.toggleFavorite(it)
+        })
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = serviceAdapter

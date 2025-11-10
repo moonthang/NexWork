@@ -9,19 +9,23 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
+import com.example.nexwork.data.model.Favorites
 import com.example.nexwork.data.model.Service
 import com.example.nexwork.data.model.User
+import com.example.nexwork.data.repository.FavoritesRepository
 import com.example.nexwork.data.repository.ServiceRepository
 import com.example.nexwork.data.repository.CategoriesRepository
 import com.example.nexwork.data.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import java.util.UUID
 
 class ServiceViewModel(application: Application) : AndroidViewModel(application) {
 
     private val serviceRepository = ServiceRepository()
     private val categoriesRepository = CategoriesRepository()
     private val authRepository = AuthRepository()
+    private val favoritesRepository = FavoritesRepository()
     private val _service = MutableLiveData<Service?>()
     val service: LiveData<Service?> get() = _service
     private val _provider = MutableLiveData<User?>()
@@ -82,10 +86,23 @@ class ServiceViewModel(application: Application) : AndroidViewModel(application)
     // Obtener servicio por id
     fun loadServiceById(serviceId: String) {
         _loading.value = true
+        val userId = auth.currentUser?.uid
         serviceRepository.getServiceById(serviceId) { result ->
             _loading.value = false
             result.onSuccess { loadedService ->
-                _service.value = loadedService
+                if (loadedService != null && userId != null) {
+                    favoritesRepository.isFavorite(userId, serviceId) { isFavResult ->
+                        isFavResult.onSuccess { favorite ->
+                            _service.value = loadedService.copy(isFavorite = favorite != null)
+                        }
+                        isFavResult.onFailure {
+                            _service.value = loadedService // show service anyway
+                        }
+                    }
+                } else {
+                    _service.value = loadedService
+                }
+
                 loadedService?.let {
                     loadProvider(it.providerId)
                 }
@@ -113,12 +130,66 @@ class ServiceViewModel(application: Application) : AndroidViewModel(application)
     // Obtener todos los servicios
     fun getAllServices() {
         _loading.value = true
+        val userId = auth.currentUser?.uid
+
         serviceRepository.getAllServices { result ->
-            _loading.value = false
-            result.onSuccess { _services.value = it }
-            result.onFailure { _error.value = it.message }
+            result.onSuccess { services ->
+                if (userId == null) {
+                    _services.value = services
+                    _loading.value = false
+                } else {
+                    favoritesRepository.getFavoritesByUserId(userId) { favoriteResult ->
+                        _loading.value = false
+                        favoriteResult.onSuccess { favorites ->
+                            val favoriteServiceIds = favorites.map { it.serviceId }.toSet()
+                            val servicesWithFavorites = services.map { service ->
+                                service.copy(isFavorite = favoriteServiceIds.contains(service.serviceId))
+                            }
+                            _services.value = servicesWithFavorites
+                        }
+                        favoriteResult.onFailure {
+                            _services.value = services
+                        }
+                    }
+                }
+            }
+            result.onFailure {
+                _loading.value = false
+                _error.value = it.message
+            }
         }
     }
+
+    fun toggleFavorite(service: Service) {
+        val userId = auth.currentUser?.uid ?: return
+
+        val updatedServices = _services.value?.map {
+            if (it.serviceId == service.serviceId) {
+                it.copy(isFavorite = !service.isFavorite)
+            } else {
+                it
+            }
+        }
+        updatedServices?.let { _services.value = it }
+
+        if (!service.isFavorite) {
+            val favorite = Favorites(
+                favoriteId = UUID.randomUUID().toString(),
+                userId = userId,
+                serviceId = service.serviceId
+            )
+            favoritesRepository.addFavorite(favorite) { /* handle error if needed */ }
+        } else {
+            favoritesRepository.isFavorite(userId, service.serviceId) { result ->
+                result.onSuccess { favorite ->
+                    if (favorite != null) {
+                        favoritesRepository.deleteFavorite(favorite.favoriteId) { /* handle error if needed */ }
+                    }
+                }
+            }
+        }
+    }
+
 
     // Eliminar servicio
     fun deleteService(id: String) {
