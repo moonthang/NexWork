@@ -54,11 +54,12 @@
     <string name="my_services_title">Mis Servicios</string>
     <string name="add_new_service_button">Agregar Nuevo Servicio</string>
 
-    <!-- Home provider page -->
+    <!-- Home's page -->
     <string name="home_provider_title">Panel de Proveedor</string>
     <string name="text_manage_availability">Gestionar disponibilidad</string>
     <string name="text_view_reviews">Ver reseñas</string>
     <string name="btn_see_my_service">Ver mis servicios</string>
+    <string name="text_categories_popular">Categorias populares</string>
 
     <!-- Create service page -->
     <string name="create_service_title">Crear Servicio</string>
@@ -94,6 +95,9 @@
     <!-- Categories -->
     <string name="categories_title">Categorías</string>
     <string name="category_id_format">ID: %s</string>
+    <string name="text_interest">Intereses</string>
+    <string name="txt_improve_skills">Mejorar habilidades</string>
+    <string name="txt_create_content">Crear contenido</string>
 
     <!-- Create category page -->
     <string name="create_category_title">Crear Categoría</string>
