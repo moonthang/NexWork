@@ -56,9 +56,9 @@ class OrdersListFragment : Fragment(), OrdersAdapter.OnItemClickListener, Option
         binding.recyclerView.adapter = ordersAdapter
 
         val dummyOrders = listOf(
-            Order("1", "Limpieza de GYM", "Sofía Ramírez", "Miguel Burgos","15 de Diciembre, 2025", "10:00 AM - 13:00 PM", ""),
-            Order("2", "Limpieza de HOGAR", "Juan Pérez","Alberto Usquen", "16 de Diciembre, 2025", "11:00 AM - 14:00 PM", ""),
-            Order("3", "Limpieza de OFICINA", "María García", "Sofia Lisarazo","17 de Diciembre, 2025", "12:00 PM - 15:00 PM", "")
+            Order("1", "Limpieza de GYM", "Sofía Ramírez", "Miguel Burgos","Activo","15 de Diciembre, 2025", "10:00 AM - 13:00 PM", ""),
+            Order("2", "Limpieza de HOGAR", "Juan Pérez","Alberto Usquen","Activo", "16 de Diciembre, 2025", "11:00 AM - 14:00 PM", ""),
+            Order("3", "Limpieza de OFICINA", "María García", "Sofia Lisarazo","Finalizado","17 de Diciembre, 2025", "12:00 PM - 15:00 PM", "")
         )
 
         ordersAdapter.submitList(dummyOrders)

@@ -5,6 +5,7 @@ data class Order(
     val serviceName: String,
     val clientName: String,
     val providerName: String,
+    val status: String,
     val date: String,
     val time: String,
     val imageUrl: String

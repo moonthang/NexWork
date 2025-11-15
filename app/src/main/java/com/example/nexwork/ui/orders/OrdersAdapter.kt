@@ -3,7 +3,6 @@ package com.example.nexwork.ui.orders
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -30,19 +29,19 @@ class OrdersAdapter(private val listener: OnItemClickListener) : ListAdapter<Ord
         private val providerNameTextView: TextView = itemView.findViewById(R.id.provider_name)
         private val dateTextView: TextView = itemView.findViewById(R.id.order_date)
         private val timeTextView: TextView = itemView.findViewById(R.id.order_time)
+        private val statusTextView: TextView = itemView.findViewById(R.id.status)
         private val imageView: ImageView = itemView.findViewById(R.id.order_image)
-        // private val detailsButton: Button = itemView.findViewById(R.id.view_details_button) // This button is commented out in XML
 
         fun bind(order: Order, listener: OnItemClickListener) {
             serviceNameTextView.text = order.serviceName
             clientNameTextView.text = "Cliente: ${order.clientName}"
             providerNameTextView.text = "Proveedor: ${order.providerName}"
+            statusTextView.text = "Estatus: ${order.status}"
             dateTextView.text = "Fecha: ${order.date}"
             timeTextView.text = "Horario: ${order.time}"
             // TODO: Load image with Glide or Picasso
 
             itemView.setOnClickListener { listener.onItemClick(order) }
-            // detailsButton.setOnClickListener { listener.onDetailsClick(order) } // This button is commented out in XML
         }
     }
 
