@@ -1,3 +1,4 @@
+
 package com.example.nexwork.ui.orders
 
 import android.os.Bundle
@@ -52,19 +53,13 @@ class OrdersListFragment : Fragment(), OrdersAdapter.OnItemClickListener, Option
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
-        ordersAdapter = OrdersAdapter(this)
+        ordersAdapter = OrdersAdapter(this, false)
         binding.recyclerView.adapter = ordersAdapter
 
         val dummyOrders = listOf(
-<<<<<<< HEAD
-            Order(orderId = "1", titleService = "Limpieza de GYM", clientId = "Sofía Ramírez", time = "10:00 AM - 13:00 PM"),
-            Order(orderId = "2", titleService = "Limpieza de HOGAR", clientId = "Juan Pérez", time = "11:00 AM - 14:00 PM"),
-            Order(orderId = "3", titleService = "Limpieza de OFICINA", clientId = "María García", time = "12:00 PM - 15:00 PM")
-=======
-            Order("1", "Limpieza de GYM", "Sofía Ramírez", "Miguel Burgos","15 de Diciembre, 2025", "10:00 AM - 13:00 PM", ""),
-            Order("2", "Limpieza de HOGAR", "Juan Pérez","Alberto Usquen", "16 de Diciembre, 2025", "11:00 AM - 14:00 PM", ""),
-            Order("3", "Limpieza de OFICINA", "María García", "Sofia Lisarazo","17 de Diciembre, 2025", "12:00 PM - 15:00 PM", "")
->>>>>>> b65780f (implement orders views and some fixes)
+            Order(orderId = "1", titleService = "Limpieza de GYM", clientName = "Sofía Ramírez", time = "10:00 AM - 13:00 PM", providerName = "Miguel Burgos", status = "Activo"),
+            Order(orderId = "2", titleService = "Limpieza de HOGAR", clientName = "Juan Pérez", time = "11:00 AM - 14:00 PM", providerName = "Alberto Usquen", status = "Activo"),
+            Order(orderId = "3", titleService = "Limpieza de OFICINA", clientName = "María García", time = "12:00 PM - 15:00 PM", providerName = "Sofia Lisarazo", status = "Finalizado")
         )
 
         ordersAdapter.submitList(dummyOrders)
@@ -73,7 +68,7 @@ class OrdersListFragment : Fragment(), OrdersAdapter.OnItemClickListener, Option
     override fun onItemClick(order: Order) {
         selectedOrder = order
         val dialog = OptionsDialogFragment.newInstance(
-            title = order.serviceName,
+            title = order.titleService,
             option1 = getString(R.string.view_details_option),
             option2 = getString(R.string.edit_option),
             option3 = getString(R.string.delete_option)
@@ -86,15 +81,15 @@ class OrdersListFragment : Fragment(), OrdersAdapter.OnItemClickListener, Option
         val order = selectedOrder ?: return
         when (option) {
             getString(R.string.view_details_option) -> {
-                Toast.makeText(requireContext(), "Ver detalles de la orden: ${order.serviceName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Ver detalles de la orden: ${order.orderId}", Toast.LENGTH_SHORT).show()
                 // Aquí podrías navegar a un fragmento con detalles de la orden
             }
             getString(R.string.edit_option) -> {
-                Toast.makeText(requireContext(), "Editar orden: ${order.serviceName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Editar orden: ${order.orderId}", Toast.LENGTH_SHORT).show()
                 // Aquí podrías navegar a un fragmento de edición de la orden
             }
             getString(R.string.delete_option) -> {
-                Toast.makeText(requireContext(), "Eliminar orden: ${order.serviceName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Eliminar orden: ${order.orderId}", Toast.LENGTH_SHORT).show()
                 // Aquí podrías implementar la lógica para eliminar la orden
             }
         }

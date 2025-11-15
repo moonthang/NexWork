@@ -3,7 +3,6 @@ package com.example.nexwork.ui.orders
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -15,7 +14,7 @@ import com.example.nexwork.data.model.Order
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class OrdersAdapter(private val listener: OnItemClickListener) : ListAdapter<Order, OrdersAdapter.OrderViewHolder>(OrdersDiffCallback()) {
+class OrdersAdapter(private val listener: OnItemClickListener, private val isConfirmOrder: Boolean) : ListAdapter<Order, OrdersAdapter.OrderViewHolder>(OrdersDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_order, parent, false)
@@ -24,7 +23,7 @@ class OrdersAdapter(private val listener: OnItemClickListener) : ListAdapter<Ord
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = getItem(position)
-        holder.bind(order, listener)
+        holder.bind(order)
     }
 
     inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,32 +32,29 @@ class OrdersAdapter(private val listener: OnItemClickListener) : ListAdapter<Ord
         private val providerNameTextView: TextView = itemView.findViewById(R.id.provider_name)
         private val dateTextView: TextView = itemView.findViewById(R.id.order_date)
         private val timeTextView: TextView = itemView.findViewById(R.id.order_time)
+        private val statusTextView: TextView = itemView.findViewById(R.id.status)
         private val imageView: ImageView = itemView.findViewById(R.id.order_image)
-        // private val detailsButton: Button = itemView.findViewById(R.id.view_details_button) // This button is commented out in XML
 
-<<<<<<< HEAD
         fun bind(order: Order) {
             serviceNameTextView.text = order.titleService
-            clientNameTextView.text = "Cliente: ${order.clientId}"
+            clientNameTextView.text = "Cliente: ${order.clientName}"
+            providerNameTextView.text = "Proveedor: ${order.providerName}"
+            statusTextView.text = "Estatus: ${order.status}"
             dateTextView.text = "Fecha: ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(order.date)}"
             timeTextView.text = "Horario: ${order.time}"
+
             if (order.imageUrl.isNotEmpty()) {
                 Glide.with(itemView.context)
                     .load(order.imageUrl)
                     .into(imageView)
             }
-=======
-        fun bind(order: Order, listener: OnItemClickListener) {
-            serviceNameTextView.text = order.serviceName
-            clientNameTextView.text = "Cliente: ${order.clientName}"
-            providerNameTextView.text = "Proveedor: ${order.providerName}"
-            dateTextView.text = "Fecha: ${order.date}"
-            timeTextView.text = "Horario: ${order.time}"
-            // TODO: Load image with Glide or Picasso
+
+            if(isConfirmOrder){
+                providerNameTextView.visibility = View.GONE
+                statusTextView.visibility = View.GONE
+            }
 
             itemView.setOnClickListener { listener.onItemClick(order) }
-            // detailsButton.setOnClickListener { listener.onDetailsClick(order) } // This button is commented out in XML
->>>>>>> b65780f (implement orders views and some fixes)
         }
     }
 
