@@ -24,6 +24,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+//import com.example.nexwork.ui.servicehiring.ServiceHiringFragment
+//import com.example.nexwork.R.id.fragment_container
 
 class ServiceDetailFragment : Fragment() {
 
@@ -115,6 +117,22 @@ class ServiceDetailFragment : Fragment() {
         observeServiceDetail(txtTitle)
         observeProvider()
         observeSimilarServices()
+
+        btnContinueService.setOnClickListener {
+            currentService?.let { service ->
+                val bundle = Bundle().apply {
+                    putString("serviceId", service.serviceId)
+                    // You might want to pass the selected plan details as well
+                    // For example: putString("selectedPlan", selectedPlan.planName)
+                }
+                parentFragmentManager.beginTransaction()
+                  //  .replace(fragment_container, ServiceHiringFragment().apply { arguments = bundle })
+                    .addToBackStack(null)
+                    .commit()
+            } ?: run {
+                Toast.makeText(context, "Error: No service selected", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupSimilarServicesRecyclerView() {

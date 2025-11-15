@@ -15,7 +15,7 @@ import com.example.nexwork.data.model.Order
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class OrdersAdapter : ListAdapter<Order, OrdersAdapter.OrderViewHolder>(OrdersDiffCallback()) {
+class OrdersAdapter(private val listener: OnItemClickListener) : ListAdapter<Order, OrdersAdapter.OrderViewHolder>(OrdersDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_order, parent, false)
@@ -24,17 +24,19 @@ class OrdersAdapter : ListAdapter<Order, OrdersAdapter.OrderViewHolder>(OrdersDi
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = getItem(position)
-        holder.bind(order)
+        holder.bind(order, listener)
     }
 
-    class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val serviceNameTextView: TextView = itemView.findViewById(R.id.service_name)
         private val clientNameTextView: TextView = itemView.findViewById(R.id.client_name)
+        private val providerNameTextView: TextView = itemView.findViewById(R.id.provider_name)
         private val dateTextView: TextView = itemView.findViewById(R.id.order_date)
         private val timeTextView: TextView = itemView.findViewById(R.id.order_time)
         private val imageView: ImageView = itemView.findViewById(R.id.order_image)
-        private val detailsButton: Button = itemView.findViewById(R.id.view_details_button)
+        // private val detailsButton: Button = itemView.findViewById(R.id.view_details_button) // This button is commented out in XML
 
+<<<<<<< HEAD
         fun bind(order: Order) {
             serviceNameTextView.text = order.titleService
             clientNameTextView.text = "Cliente: ${order.clientId}"
@@ -45,7 +47,23 @@ class OrdersAdapter : ListAdapter<Order, OrdersAdapter.OrderViewHolder>(OrdersDi
                     .load(order.imageUrl)
                     .into(imageView)
             }
+=======
+        fun bind(order: Order, listener: OnItemClickListener) {
+            serviceNameTextView.text = order.serviceName
+            clientNameTextView.text = "Cliente: ${order.clientName}"
+            providerNameTextView.text = "Proveedor: ${order.providerName}"
+            dateTextView.text = "Fecha: ${order.date}"
+            timeTextView.text = "Horario: ${order.time}"
+            // TODO: Load image with Glide or Picasso
+
+            itemView.setOnClickListener { listener.onItemClick(order) }
+            // detailsButton.setOnClickListener { listener.onDetailsClick(order) } // This button is commented out in XML
+>>>>>>> b65780f (implement orders views and some fixes)
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(order: Order)
     }
 }
 
