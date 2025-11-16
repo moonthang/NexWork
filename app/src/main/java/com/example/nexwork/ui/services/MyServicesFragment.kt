@@ -58,9 +58,13 @@ class MyServicesFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.services_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        serviceAdapter = ServiceAdapter(false) { service ->
-            showOptionsDialog(service)
-        }
+        serviceAdapter = ServiceAdapter(
+            isClientView = false,
+            onClick = { service ->
+                showOptionsDialog(service)
+            },
+            onFavoriteClick = {}
+        )
         recyclerView.adapter = serviceAdapter
 
         val fab = view.findViewById<Button>(R.id.add_service_fab)

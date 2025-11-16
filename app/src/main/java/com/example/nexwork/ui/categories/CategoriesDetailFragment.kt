@@ -85,17 +85,24 @@ class CategoriesDetailFragment : Fragment() {
         }
 
         // Se llama el adaptador para la vista decliente, y manejo del clic en un servicio
-        serviceAdapter = ServiceAdapter(isClientView = true) { service ->
-            val fragment = ServiceDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString("serviceId", service.serviceId)
+        serviceAdapter = ServiceAdapter(
+            isClientView = true,
+            onClick = { service ->
+                val fragment = ServiceDetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("serviceId", service.serviceId)
+                    }
                 }
+                // Navega al fragmento de detalles del servicio
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            },
+            onFavoriteClick = { service ->
+                serviceViewModel.toggleFavorite(service)
             }
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
+        )
 
         // Configuración del RecyclerView
         binding.rvServices.apply {

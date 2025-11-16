@@ -7,31 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:23096082016:android:a120c6415bcdbf46708d05",
-        "android_client_info": {
-          "package_name": "app.nexwork"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDcifRlOVUnSb_au79Nw2QPRHxAj7zHQZc"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:23096082016:android:fdc5297778d21084708d05",
         "android_client_info": {
           "package_name": "com.example.nexwork"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "23096082016-e5mbdaktbqc8bf4e26cmj11rflvoml74.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nexwork",
+            "certificate_hash": "7192aa40db4ffb666261c9229a05e185795169e7"
+          }
+        },
+        {
+          "client_id": "23096082016-9mm2n7evnrg1f2i24ptqcqsdkvmi2s58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDcifRlOVUnSb_au79Nw2QPRHxAj7zHQZc"
@@ -39,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23096082016-9mm2n7evnrg1f2i24ptqcqsdkvmi2s58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

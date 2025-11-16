@@ -15,12 +15,16 @@ import com.example.nexwork.data.model.Service
 import java.text.NumberFormat
 import java.util.Locale
 
-class ServiceAdapter(private val isClientView: Boolean, private val onClick: (Service) -> Unit) :
+class ServiceAdapter(
+    private val isClientView: Boolean,
+    private val onClick: (Service) -> Unit,
+    private val onFavoriteClick: (Service) -> Unit
+) :
     ListAdapter<Service, ServiceAdapter.ServiceViewHolder>(ServiceDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServiceViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_service, parent, false)
-        return ServiceViewHolder(view, isClientView, onClick)
+        return ServiceViewHolder(view, isClientView, onClick, onFavoriteClick)
     }
 
     override fun onBindViewHolder(holder: ServiceViewHolder, position: Int) {
@@ -28,8 +32,9 @@ class ServiceAdapter(private val isClientView: Boolean, private val onClick: (Se
         holder.bind(getItem(position))
     }
 
-    class ServiceViewHolder(itemView: View, private val isClientView: Boolean, val onClick: (Service) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    class ServiceViewHolder(itemView: View, private val isClientView: Boolean, val onClick: (Service) -> Unit, private val onFavoriteClick: (Service) -> Unit) : RecyclerView.ViewHolder(itemView) {
         private val favoriteLayout: LinearLayout = itemView.findViewById(R.id.favorite_layout)
+        private val favoriteIcon: ImageView = itemView.findViewById(R.id.favorite_icon)
         private val ratingLayout: LinearLayout = itemView.findViewById(R.id.rating_layout)
         private val nameTextView: TextView = itemView.findViewById(R.id.service_name)
         private val descriptionTextView: TextView = itemView.findViewById(R.id.service_description)
@@ -42,6 +47,11 @@ class ServiceAdapter(private val isClientView: Boolean, private val onClick: (Se
             itemView.setOnClickListener {
                 currentService?.let {
                     onClick(it)
+                }
+            }
+            favoriteIcon.setOnClickListener {
+                currentService?.let{
+                    onFavoriteClick(it)
                 }
             }
         }
@@ -57,6 +67,12 @@ class ServiceAdapter(private val isClientView: Boolean, private val onClick: (Se
             } else {
                 ratingLayout.visibility = View.GONE
                 favoriteLayout.visibility = View.GONE
+            }
+
+            if (service.isFavorite) {
+                favoriteIcon.setImageResource(R.drawable.ic_heart_filled)
+            } else {
+                favoriteIcon.setImageResource(R.drawable.ic_heart_outline)
             }
 
             // Obtener el primer plan de la lista 'Sencillo'

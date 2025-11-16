@@ -38,9 +38,9 @@ class OrdersListFragment : Fragment() {
         recyclerView.adapter = adapter
 
         val dummyOrders = listOf(
-            Order("1", "Limpieza de GYM", "Sofía Ramírez", "15 de Diciembre, 2025", "10:00 AM - 13:00 PM", ""),
-            Order("2", "Limpieza de HOGAR", "Juan Pérez", "16 de Diciembre, 2025", "11:00 AM - 14:00 PM", ""),
-            Order("3", "Limpieza de OFICINA", "María García", "17 de Diciembre, 2025", "12:00 PM - 15:00 PM", "")
+            Order(orderId = "1", titleService = "Limpieza de GYM", clientId = "Sofía Ramírez", time = "10:00 AM - 13:00 PM"),
+            Order(orderId = "2", titleService = "Limpieza de HOGAR", clientId = "Juan Pérez", time = "11:00 AM - 14:00 PM"),
+            Order(orderId = "3", titleService = "Limpieza de OFICINA", clientId = "María García", time = "12:00 PM - 15:00 PM")
         )
 
         adapter.submitList(dummyOrders)
