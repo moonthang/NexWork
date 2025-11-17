@@ -14,7 +14,7 @@ import com.example.nexwork.data.model.Order
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class OrdersAdapter(private val listener: OnItemClickListener) : ListAdapter<Order, OrdersAdapter.OrderViewHolder>(OrdersDiffCallback()) {
+class OrdersAdapter(private val listener: OnItemClickListener, private val isConfirmOrder: Boolean) : ListAdapter<Order, OrdersAdapter.OrderViewHolder>(OrdersDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_order, parent, false)
@@ -23,7 +23,7 @@ class OrdersAdapter(private val listener: OnItemClickListener) : ListAdapter<Ord
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = getItem(position)
-        holder.bind(order, listener)
+        holder.bind(order)
     }
 
     inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,22 +37,22 @@ class OrdersAdapter(private val listener: OnItemClickListener) : ListAdapter<Ord
 
         fun bind(order: Order) {
             serviceNameTextView.text = order.titleService
-            clientNameTextView.text = "Cliente: ${order.clientId}"
+            clientNameTextView.text = "Cliente: ${order.clientName}"
+            providerNameTextView.text = "Proveedor: ${order.providerName}"
+            statusTextView.text = "Estatus: ${order.status}"
             dateTextView.text = "Fecha: ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(order.date)}"
             timeTextView.text = "Horario: ${order.time}"
+
             if (order.imageUrl.isNotEmpty()) {
                 Glide.with(itemView.context)
                     .load(order.imageUrl)
                     .into(imageView)
             }
-        fun bind(order: Order, listener: OnItemClickListener) {
-            serviceNameTextView.text = order.titleService
-            clientNameTextView.text = "Cliente: ${order.clientName}"
-            providerNameTextView.text = "Proveedor: ${order.providerName}"
-            statusTextView.text = "Estatus: ${order.status}"
-            dateTextView.text = "Fecha: ${order.date}"
-            timeTextView.text = "Horario: ${order.time}"
-            // TODO: Load image with Glide or Picasso
+
+            if(isConfirmOrder){
+                providerNameTextView.visibility = View.GONE
+                statusTextView.visibility = View.GONE
+            }
 
             itemView.setOnClickListener { listener.onItemClick(order) }
         }
