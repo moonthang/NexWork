@@ -166,7 +166,7 @@ class Home : AppCompatActivity(), CategoryAdapter.OnItemClickListener {
             }
             "admin" -> {
                 menu.findItem(R.id.btn_messages).isVisible = true
-                menu.findItem(R.id.btn_category).isVisible = true
+                menu.findItem(R.id.btn_category).isVisible = false // Changed to false
                 menu.findItem(R.id.btn_notifications).isVisible = true
             }
             else -> {

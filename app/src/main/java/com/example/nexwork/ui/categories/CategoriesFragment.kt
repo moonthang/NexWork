@@ -43,6 +43,11 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
         setupFabAddCategoryClickListener()
 
         categoryViewModel.loadCategories()
+
+        binding.header.btnNotification.visibility = View.GONE
+        binding.header.btnSearch.visibility = View.GONE
+        binding.header.btnFilter.visibility = View.GONE
+        binding.header.btnOptions.visibility = View.GONE
     }
 
     private fun setupHeader() {

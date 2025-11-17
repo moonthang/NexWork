@@ -15,4 +15,7 @@ data class Order(
     val imageUrl: String = "",
     val price: Double = 0.0,
     val ubicationClient: Map<String, Double> = emptyMap()
+    val providerName: String,
+    val clientName: String,
+    val status: String,
 )
