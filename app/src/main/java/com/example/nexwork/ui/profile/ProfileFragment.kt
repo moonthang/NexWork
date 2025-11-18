@@ -23,6 +23,7 @@ import com.example.nexwork.ui.profile.account.AccountFragment
 import com.example.nexwork.ui.profile.favorites.FavoritesListFragment
 import com.example.nexwork.ui.services.MyServicesFragment
 import com.example.nexwork.ui.users.UserListFragment
+import com.example.nexwork.ui.orders.OrdersListFragment
 
 class ProfileFragment : Fragment() {
 
@@ -89,7 +90,7 @@ class ProfileFragment : Fragment() {
         val sectionManageOrders = view.findViewById<LinearLayout>(R.id.section_manage_orders)
         sectionManageOrders.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(fragment_container, MyServicesFragment())
+                .replace(fragment_container, OrdersListFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -178,6 +179,7 @@ class ProfileFragment : Fragment() {
                 sectionSavedList.visibility = View.GONE
                 sectionProviderPanel.visibility = View.VISIBLE
                 sectionInviteFriends.visibility = View.GONE
+                sectionProviderPanel.visibility = View.GONE
 
             }
         }

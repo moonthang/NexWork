@@ -30,7 +30,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class ConfirmOrderFragment : Fragment() {
+class ConfirmOrderFragment : Fragment(), OrdersAdapter.OnItemClickListener {
 
     private val serviceViewModel: ServiceViewModel by viewModels()
     private val categoryViewModel: CategoryViewModel by viewModels()
@@ -51,6 +51,7 @@ class ConfirmOrderFragment : Fragment() {
     private lateinit var btnContinue: Button
     private lateinit var addonsRecyclerView: RecyclerView
     private lateinit var serviceAddonAdapter: ServiceAddonAdapter
+    private lateinit var ordersAdapter: OrdersAdapter
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
@@ -93,6 +94,7 @@ class ConfirmOrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        ordersAdapter = OrdersAdapter(this, true)
         serviceAddonAdapter = ServiceAddonAdapter(emptyList())
         addonsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         addonsRecyclerView.adapter = serviceAddonAdapter
@@ -213,11 +215,18 @@ class ConfirmOrderFragment : Fragment() {
                 time = hoursService.text.toString(),
                 imageUrl = currentService!!.imageUrl.firstOrNull() ?: "",
                 price = currentPlan!!.price,
-                ubicationClient = clientLocation ?: emptyMap()
+                ubicationClient = clientLocation ?: emptyMap(),
+                providerName = "",
+                clientName = "",
+                status = ""
             )
             orderViewModel.createOrder(order)
         } else {
             Toast.makeText(requireContext(), "Error creating order", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onItemClick(order: Order) {
+        //
     }
 }
