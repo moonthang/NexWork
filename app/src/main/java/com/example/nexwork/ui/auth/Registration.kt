@@ -18,7 +18,6 @@ import com.example.nexwork.R
 import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.data.model.User // Importar el modelo User
 import java.util.Calendar
-import java.util.UUID
 
 class Registration : AppCompatActivity() {
 
@@ -81,6 +80,7 @@ class Registration : AppCompatActivity() {
         val hint_last_name = findViewById<EditText>(R.id.hint_last_name)
         val hint_email = findViewById<EditText>(R.id.hint_email)
         val hint_phone = findViewById<EditText>(R.id.hint_phone)
+        val hint_profession = findViewById<EditText>(R.id.hint_profession)
         val hint_password = findViewById<EditText>(R.id.hint_password)
         val hint_confirm_password = findViewById<EditText>(R.id.hint_confirm_password)
         val checkbox_accept_terms = findViewById<CheckBox>(R.id.checkbox_accept_terms)
@@ -96,6 +96,7 @@ class Registration : AppCompatActivity() {
             val email = hint_email.text.toString()
             val birthDate = birthDateEditText.text.toString()
             val phone = hint_phone.text.toString()
+            val profession = hint_profession.text.toString()
             val password = hint_password.text.toString()
             val confirmPassword = hint_confirm_password.text.toString()
             val acceptTerms = checkbox_accept_terms.isChecked
@@ -106,6 +107,7 @@ class Registration : AppCompatActivity() {
                     email,
                     birthDate,
                     phone,
+                    profession,
                     password,
                     confirmPassword,
                     acceptTerms
@@ -118,6 +120,7 @@ class Registration : AppCompatActivity() {
                     email = email,
                     birthDate = birthDate,
                     phone = phone,
+                    profession = profession,
                     password = password,
                     role = userRole,
                 )
@@ -151,12 +154,13 @@ class Registration : AppCompatActivity() {
         email: String,
         birthDate: String,
         phone: String,
+        profession: String,
         password: String,
         confirmPassword: String,
         acceptTerms: Boolean
     ): Boolean {
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() ||
-            birthDate.isEmpty() || phone.isEmpty() || password.isEmpty() ||
+            birthDate.isEmpty() || phone.isEmpty() || profession.isEmpty() || password.isEmpty() ||
             confirmPassword.isEmpty()) {
             Toast.makeText(this, "Por favor, todos los campos deben llenarse.", Toast.LENGTH_SHORT).show()
             return false

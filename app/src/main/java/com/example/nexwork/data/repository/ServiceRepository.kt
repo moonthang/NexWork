@@ -1,12 +1,17 @@
 package com.example.nexwork.data.repository
 
 import com.example.nexwork.data.model.Service
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.tasks.await
 
 class ServiceRepository {
 
     private val db = FirebaseFirestore.getInstance()
     private val servicesCollection = db.collection("services")
+    private val storage = FirebaseStorage.getInstance()
 
     // Crear un servicio en Firestore
     fun createService(service: Service, onComplete: (Result<Unit>) -> Unit) {
@@ -39,6 +44,20 @@ class ServiceRepository {
             .addOnFailureListener { e -> onComplete(Result.failure(e)) }
     }
 
+    fun getServicesByIds(serviceIds: List<String>, onComplete: (Result<List<Service>>) -> Unit) {
+        if (serviceIds.isEmpty()) {
+            onComplete(Result.success(emptyList()))
+            return
+        }
+
+        servicesCollection.whereIn("serviceId", serviceIds).get()
+            .addOnSuccessListener { querySnapshot ->
+                val services = querySnapshot.toObjects(Service::class.java)
+                onComplete(Result.success(services))
+            }
+            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
+
     // Obtener servicios por ID de categoría
     fun getServicesByCategoryId(categoryId: String, onComplete: (Result<List<Service>>) -> Unit) {
         servicesCollection.whereEqualTo("categoryId", categoryId).get()
@@ -58,8 +77,79 @@ class ServiceRepository {
 
     // Eliminar un servicio
     fun deleteService(serviceId: String, onComplete: (Result<Unit>) -> Unit) {
-        servicesCollection.document(serviceId).delete()
+        val docRef = servicesCollection.document(serviceId)
+
+        docRef.get().addOnSuccessListener { documentSnapshot ->
+            if (!documentSnapshot.exists()) {
+                onComplete(Result.success(Unit))
+                return@addOnSuccessListener
+            }
+
+            val service = documentSnapshot.toObject(Service::class.java)
+            val imageUrls = service?.imageUrl ?: emptyList()
+
+            if (imageUrls.isEmpty()) {
+                docRef.delete()
+                    .addOnSuccessListener { onComplete(Result.success(Unit)) }
+                    .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+            } else {
+                val deleteTasks = imageUrls.mapNotNull { url ->
+                    if (url.isNotEmpty()) {
+                        storage.getReferenceFromUrl(url).delete()
+                    } else {
+                        null
+                    }
+                }
+
+                Tasks.whenAll(deleteTasks)
+                    .addOnSuccessListener {
+                        docRef.delete()
+                            .addOnSuccessListener { onComplete(Result.success(Unit)) }
+                            .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+                    }
+                    .addOnFailureListener { e ->
+                        onComplete(Result.failure(e))
+                    }
+            }
+        }.addOnFailureListener { e ->
+            onComplete(Result.failure(e))
+        }
+    }
+
+    // Borrar varias imágenes en Storage por sus URLs
+    fun deleteServiceImages(urls: List<String>, onComplete: (Result<Unit>) -> Unit) {
+        if (urls.isEmpty()) {
+            onComplete(Result.success(Unit))
+            return
+        }
+
+        val deleteTasks = urls.mapNotNull { url ->
+            if (url.isNotEmpty()) {
+                try {
+                    storage.getReferenceFromUrl(url).delete()
+                } catch (e: Exception) {
+                    null
+                }
+            } else {
+                null
+            }
+        }
+
+        if (deleteTasks.isEmpty()) {
+            onComplete(Result.success(Unit))
+            return
+        }
+
+        Tasks.whenAll(deleteTasks)
             .addOnSuccessListener { onComplete(Result.success(Unit)) }
             .addOnFailureListener { e -> onComplete(Result.failure(e)) }
+    }
+    
+    suspend fun getServicesForProvider(providerId: String, limit: Long? = null): List<Service> {
+        var query: Query = servicesCollection.whereEqualTo("providerId", providerId)
+        if (limit != null) {
+            query = query.orderBy("createdAt", Query.Direction.DESCENDING).limit(limit)
+        }
+        return query.get().await().toObjects(Service::class.java)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.nexwork.ui.services
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nexwork.R
 import com.example.nexwork.core.LoadingDialog
+import com.example.nexwork.data.model.Service
 
 class MyServicesFragment : Fragment() {
 
@@ -55,24 +57,15 @@ class MyServicesFragment : Fragment() {
         }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.services_recycler_view)
-        // Muestra la lista de servicios verticalmente
         recyclerView.layoutManager = LinearLayoutManager(context)
-        serviceAdapter = ServiceAdapter(false) { service ->
-            val bundle = Bundle().apply {
-                putString("serviceId", service.serviceId)
-            }
-
-            val serviceDetailFragment = ServiceDetailFragment().apply {
-                arguments = bundle
-            }
-
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, serviceDetailFragment)
-                .addToBackStack(null)
-                .commit()
-        }
+        serviceAdapter = ServiceAdapter(
+            isClientView = false,
+            onClick = { service ->
+                showOptionsDialog(service)
+            },
+            onFavoriteClick = {}
+        )
         recyclerView.adapter = serviceAdapter
-
 
         val fab = view.findViewById<Button>(R.id.add_service_fab)
         fab.setOnClickListener {
@@ -84,15 +77,98 @@ class MyServicesFragment : Fragment() {
 
         observeViewModel()
         viewModel.getAllServices()
+        observeServiceDeleted()
     }
 
-    // Observa los cambios en la lista de servicios
+    // Eliminar servicio
+    private fun observeServiceDeleted() {
+        viewModel.serviceDeleted.observe(viewLifecycleOwner) { isDeleted ->
+            if (isDeleted) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.service_deleted),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.getAllServices()
+                viewModel.onServiceDeletedHandled()
+            }
+        }
+    }
+
+    private fun showOptionsDialog(service: Service) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_item_options, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        val tvDialogTitle = dialogView.findViewById<TextView>(R.id.tvDialogTitle)
+        val btnView = dialogView.findViewById<Button>(R.id.btnOption1)
+        val btnEdit = dialogView.findViewById<Button>(R.id.btnOption2)
+        val btnDelete = dialogView.findViewById<Button>(R.id.btnOption3)
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+
+        tvDialogTitle.text = service.title
+        btnView.text = getString(R.string.btn_see)
+        btnEdit.text = getString(R.string.btn_edit)
+        btnDelete.text = getString(R.string.delete_option)
+
+        btnView.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("serviceId", service.serviceId)
+            }
+            val serviceDetailFragment = ServiceDetailFragment().apply {
+                arguments = bundle
+            }
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, serviceDetailFragment)
+                .addToBackStack(null)
+                .commit()
+            dialog.dismiss()
+        }
+
+        btnEdit.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("serviceId", service.serviceId)
+                putString("categoryId", service.categoryId)
+            }
+            val createServiceFragment = CreateServiceFragment().apply {
+                arguments = bundle
+            }
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, createServiceFragment)
+                .addToBackStack(null)
+                .commit()
+            dialog.dismiss()
+        }
+
+        btnDelete.setOnClickListener {
+            dialog.dismiss()
+            showDeleteConfirmationDialog(service)
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    // Eliminar servicio mensaje
+    private fun showDeleteConfirmationDialog(service: Service) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.txt_delete_service))
+            .setMessage(getString(R.string.txt_delete_service_quest))
+            .setPositiveButton(getString(R.string.opt_yes)) { _, _ ->
+                viewModel.deleteService(service.serviceId)
+            }
+            .setNegativeButton(getString(R.string.opt_no), null)
+            .show()
+    }
+
     private fun observeViewModel() {
         viewModel.services.observe(viewLifecycleOwner) { services ->
             loadingDialog.dismiss()
             view?.findViewById<View>(R.id.MyServicesFragment)?.visibility = View.VISIBLE
-
-            // Actualiza la lista de servicios en el adaptador
             serviceAdapter.submitList(services)
         }
     }

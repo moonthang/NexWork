@@ -1,6 +1,5 @@
 package com.example.nexwork.ui.profile
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.TextView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.nexwork.ui.home.Home
 import com.example.nexwork.R
 import com.example.nexwork.R.id.fragment_container
 import com.example.nexwork.data.model.User
@@ -20,8 +18,9 @@ import com.example.nexwork.core.LoadingDialog
 import com.example.nexwork.ui.categories.CategoriesFragment
 import com.example.nexwork.ui.home.HomeProviderFragment
 import com.example.nexwork.ui.profile.account.AccountFragment
-import com.example.nexwork.ui.services.MyServicesFragment
+import com.example.nexwork.ui.profile.favorites.FavoritesListFragment
 import com.example.nexwork.ui.users.UserListFragment
+import com.example.nexwork.ui.orders.OrdersListFragment
 
 class ProfileFragment : Fragment() {
 
@@ -88,7 +87,7 @@ class ProfileFragment : Fragment() {
         val sectionManageOrders = view.findViewById<LinearLayout>(R.id.section_manage_orders)
         sectionManageOrders.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(fragment_container, MyServicesFragment())
+                .replace(fragment_container, OrdersListFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -98,6 +97,15 @@ class ProfileFragment : Fragment() {
         sectionCategories.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(fragment_container, CategoriesFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        // redirije hacia favoritos
+        val sectionSavedList = view.findViewById<LinearLayout>(R.id.section_saved_list)
+        sectionSavedList.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(fragment_container, FavoritesListFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -168,6 +176,7 @@ class ProfileFragment : Fragment() {
                 sectionSavedList.visibility = View.GONE
                 sectionProviderPanel.visibility = View.VISIBLE
                 sectionInviteFriends.visibility = View.GONE
+                sectionProviderPanel.visibility = View.GONE
 
             }
         }

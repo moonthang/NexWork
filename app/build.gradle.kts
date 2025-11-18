@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.google.material)
+    implementation(libs.androidx.gridlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -71,4 +72,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.glide)
     ksp(libs.androidx.room.compiler)
+    implementation("com.google.android.gms:play-services-location:21.2.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }

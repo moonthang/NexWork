@@ -46,8 +46,10 @@
                 android:layout_width="350dp"
                 android:layout_height="65dp"
                 android:layout_marginTop="15dp"
+                android:autofillHints="@string/hint_password"
                 android:background="@drawable/edittext_background"
                 android:hint="@string/hint_password"
+                android:inputType="textPassword"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="18sp"
@@ -75,6 +77,24 @@
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/btn_action_google"
+                android:layout_width="350dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bottom_google"
+                android:text="@string/action_login_google"
+                android:textAlignment="center"
+                android:textColor="@color/background_primary"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/text_primary"
+                app:icon="@drawable/ic_google"
+                app:iconGravity="start"
+                app:iconSize="35dp"
+                app:iconTint="@null"
                 android:gravity="center" />
 
         </LinearLayout>

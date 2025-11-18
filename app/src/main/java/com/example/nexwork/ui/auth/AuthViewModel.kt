@@ -27,6 +27,7 @@ class AuthViewModel : ViewModel() {
                     email = user.email,
                     birthDate = user.birthDate,
                     phone = user.phone,
+                    profession = user.profession,
                     role = user.role
                 )
 

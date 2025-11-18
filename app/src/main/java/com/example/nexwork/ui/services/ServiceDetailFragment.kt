@@ -19,6 +19,7 @@ import java.util.Locale
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.nexwork.core.LoadingDialog
+import com.example.nexwork.ui.orders.ConfirmOrderFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.tabs.TabLayout
@@ -42,6 +43,7 @@ class ServiceDetailFragment : Fragment() {
     private lateinit var btnPremium: MaterialButton
     private lateinit var loadingDialog: LoadingDialog
     private var currentService: Service? = null
+    private var selectedPlanIndex: Int = 0
     private lateinit var similarServicesRecyclerView: RecyclerView
     private lateinit var similarServicesAdapter: ServiceAdapter
 
@@ -57,7 +59,7 @@ class ServiceDetailFragment : Fragment() {
 
         providerName = view.findViewById(R.id.name_provider)
         serviceDescription = view.findViewById(R.id.service_description)
-        //providerProfession = view.findViewById(R.id.profession_provider)
+        providerProfession = view.findViewById(R.id.profession_provider)
         //providerUbication = view.findViewById(R.id.ubication_provider)
         providerProfileImage = view.findViewById(R.id.profileImage)
         tabIndicator = view.findViewById(R.id.tab_indicator)
@@ -68,6 +70,8 @@ class ServiceDetailFragment : Fragment() {
         btnPremium = view.findViewById(R.id.offer_tab_premium)
         btnContinueService = view.findViewById(R.id.btn_continue_service)
         similarServicesRecyclerView = view.findViewById(R.id.services_recycler_view)
+
+        btnContinueService.setOnClickListener { navigateToConfirmOrder() }
 
         return view
     }
@@ -92,6 +96,9 @@ class ServiceDetailFragment : Fragment() {
         btnFilter.visibility = View.GONE
         btnOptions.visibility = View.VISIBLE
 
+        btnOptions.setOnClickListener {
+        }
+
         btnBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
@@ -111,20 +118,26 @@ class ServiceDetailFragment : Fragment() {
     }
 
     private fun setupSimilarServicesRecyclerView() {
-        similarServicesAdapter = ServiceAdapter(true) { service ->
-            val bundle = Bundle().apply {
-                putString("serviceId", service.serviceId)
-            }
+        similarServicesAdapter = ServiceAdapter(
+            isClientView = true,
+            onClick = { service ->
+                val bundle = Bundle().apply {
+                    putString("serviceId", service.serviceId)
+                }
 
-            val serviceDetailFragment = ServiceDetailFragment().apply {
-                arguments = bundle
-            }
+                val serviceDetailFragment = ServiceDetailFragment().apply {
+                    arguments = bundle
+                }
 
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, serviceDetailFragment)
-                .addToBackStack(null)
-                .commit()
-        }
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, serviceDetailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            },
+            onFavoriteClick = { service ->
+                categoryViewModel.toggleFavorite(service)
+            }
+        )
         similarServicesRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = similarServicesAdapter
@@ -150,7 +163,7 @@ class ServiceDetailFragment : Fragment() {
                 setupPlanSelection(service.plans)
                 view?.findViewById<View>(R.id.ServiceDetailFragment)?.visibility = View.VISIBLE
                 loadingDialog.dismiss()
-            } else if (serviceViewModel.error.value != null) {
+            } else if (serviceViewModel.error.value != null && serviceViewModel.serviceDeleted.value == false) {
                 Toast.makeText(context, serviceViewModel.error.value, Toast.LENGTH_LONG).show()
                 loadingDialog.dismiss()
             }
@@ -162,6 +175,7 @@ class ServiceDetailFragment : Fragment() {
         serviceViewModel.provider.observe(viewLifecycleOwner) { provider ->
             if (provider != null) {
                 providerName.text = "${provider.firstName} ${provider.lastName}"
+                providerProfession.text = provider.profession
                 Glide.with(this).load(provider.profileImageUrl).into(providerProfileImage)
             }
         }
@@ -203,7 +217,6 @@ class ServiceDetailFragment : Fragment() {
             R.id.offer_tab_premium to "premium"
         )
 
-        // Mostrar los botones correspondientes
         buttonPlanMap.forEach { (buttonId, planNameKey) ->
             val button = view?.findViewById<MaterialButton>(buttonId)
             val plan = planMap[planNameKey]
@@ -226,6 +239,7 @@ class ServiceDetailFragment : Fragment() {
                 }
 
                 val selectedPlan = selectedPlanNameKey?.let { planMap[it] }
+                selectedPlanIndex = plans.indexOf(selectedPlan)
 
                 selectedPlan?.let { showPlanDetails(it) }
             }
@@ -261,12 +275,7 @@ class ServiceDetailFragment : Fragment() {
             else -> -1
         }
 
-        val selectedAddons = if (addonIndex != -1 && currentService?.addons?.size ?: 0 > addonIndex) {
-            listOf(currentService!!.addons[addonIndex])
-        } else {
-            emptyList()
-        }
-
+        val selectedAddons = currentService?.addons?.filter { it.planIndex == addonIndex } ?: emptyList()
         displayAddons(selectedAddons)
     }
 
@@ -288,5 +297,19 @@ class ServiceDetailFragment : Fragment() {
 
             addonsContainer.addView(addonView)
         }
+    }
+
+    private fun navigateToConfirmOrder() {
+        val bundle = Bundle().apply {
+            putString("serviceId", currentService?.serviceId)
+            putInt("planIndex", selectedPlanIndex)
+        }
+        val confirmOrderFragment = ConfirmOrderFragment().apply {
+            arguments = bundle
+        }
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, confirmOrderFragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

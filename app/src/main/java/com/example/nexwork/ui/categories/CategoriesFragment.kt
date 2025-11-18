@@ -43,6 +43,11 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
         setupFabAddCategoryClickListener()
 
         categoryViewModel.loadCategories()
+
+        binding.header.btnNotification.visibility = View.GONE
+        binding.header.btnSearch.visibility = View.GONE
+        binding.header.btnFilter.visibility = View.GONE
+        binding.header.btnOptions.visibility = View.GONE
     }
 
     private fun setupHeader() {
@@ -63,8 +68,13 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
         searchEditText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary))
     }
 
+    // Muestra la lista de categorias
     private fun setupRecyclerView() {
-        categoryAdapter = CategoryAdapter(emptyList(), this)
+        categoryAdapter = CategoryAdapter(
+            categories = emptyList(),
+            listener = this,
+            viewType = ViewType.LIST
+        )
         binding.rvCategories.apply {
             adapter = categoryAdapter
             layoutManager = LinearLayoutManager(context)
@@ -102,12 +112,10 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnItemClickListener, Opti
     override fun onOptionSelected(option: String) {
         when (option) {
             getString(R.string.edit_option) -> {
-                // TODO: Implement edit logic
-                android.widget.Toast.makeText(requireContext(), "Edit: ${selectedCategory?.name}", android.widget.Toast.LENGTH_SHORT).show()
+                android.widget.Toast.makeText(requireContext(), "Editar: ${selectedCategory?.name}", android.widget.Toast.LENGTH_SHORT).show()
             }
             getString(R.string.delete_option) -> {
-                // TODO: Implement delete logic
-                android.widget.Toast.makeText(requireContext(), "Delete: ${selectedCategory?.name}", android.widget.Toast.LENGTH_SHORT).show()
+                android.widget.Toast.makeText(requireContext(), "Eliminar: ${selectedCategory?.name}", android.widget.Toast.LENGTH_SHORT).show()
             }
         }
     }
